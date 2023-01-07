@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # local app
     "ecommerce.dashboard",
     "ecommerce.inventory",
+    "ecommerce.demo",
 ]
 
 MIDDLEWARE = [
