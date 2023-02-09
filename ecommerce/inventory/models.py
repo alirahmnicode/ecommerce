@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey, TreeManyToManyField
 
 
@@ -14,7 +14,7 @@ class Category(MPTTModel):
         unique=False,
         blank=False,
         verbose_name=_("category name"),
-        help_text=_("forma: required, max-100"),
+        help_text=_("format: required, max-100"),
     )
     slug = models.SlugField(
         max_length=150,
@@ -22,9 +22,12 @@ class Category(MPTTModel):
         unique=False,
         blank=False,
         verbose_name=_("category safe URL"),
-        help_text=_("forma: required, letters, numbers, underscore, or hyphens"),
+        help_text=_("format: required, letters, numbers, underscore, or hyphens"),
     )
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(
+        default=True,
+    )
+
     parent = TreeForeignKey(
         "self",
         on_delete=models.PROTECT,
@@ -33,17 +36,17 @@ class Category(MPTTModel):
         blank=True,
         unique=False,
         verbose_name=_("parent of category"),
-        help_text=_("forma: not required"),
+        help_text=_("format: not required"),
     )
 
-    class MpttMeta:
-        order_insertion_by = ["nae"]
+    class MPTTMeta:
+        order_insertion_by = ["name"]
 
     class Meta:
         verbose_name = _("product category")
         verbose_name_plural = _("product categories")
 
-    def __str__(self) -> str:
+    def __str__(self):
         return self.name
 
 
@@ -108,24 +111,6 @@ class Product(models.Model):
         return self.name
 
 
-class ProductType(models.Model):
-    """
-    Product type table
-    """
-
-    name = models.CharField(
-        max_length=255,
-        unique=True,
-        null=False,
-        blank=False,
-        verbose_name=_("type of product"),
-        help_text=_("format: required, unique, max-255"),
-    )
-
-    def __str__(self):
-        return self.name
-
-
 class Brand(models.Model):
     """
     Product brand table
@@ -166,6 +151,30 @@ class ProductAttribute(models.Model):
         return self.name
 
 
+class ProductType(models.Model):
+    """
+    Product type table
+    """
+
+    name = models.CharField(
+        max_length=255,
+        unique=True,
+        null=False,
+        blank=False,
+        verbose_name=_("type of product"),
+        help_text=_("format: required, unique, max-255"),
+    )
+
+    product_type_attributes = models.ManyToManyField(
+        ProductAttribute,
+        related_name="product_type_attributes",
+        through="ProductTypeAttribute",
+    )
+
+    def __str__(self):
+        return self.name
+
+
 class ProductAttributeValue(models.Model):
     """
     Product attribute value table
@@ -184,9 +193,6 @@ class ProductAttributeValue(models.Model):
         verbose_name=_("attribute value"),
         help_text=_("format: required, max-255"),
     )
-
-    def __str__(self):
-        return f"{self.product_attribute.name} : {self.attribute_value}"
 
 
 class ProductInventory(models.Model):
@@ -226,6 +232,11 @@ class ProductInventory(models.Model):
         default=True,
         verbose_name=_("product visibility"),
         help_text=_("format: true=product visible"),
+    )
+    is_default = models.BooleanField(
+        default=False,
+        verbose_name=_("default selection"),
+        help_text=_("format: true=sub product selected"),
     )
     retail_price = models.DecimalField(
         max_digits=5,
@@ -389,3 +400,23 @@ class ProductAttributeValues(models.Model):
 
     class Meta:
         unique_together = (("attributevalues", "productinventory"),)
+
+
+class ProductTypeAttribute(models.Model):
+    """
+    Product type attributes link table
+    """
+
+    product_attribute = models.ForeignKey(
+        ProductAttribute,
+        related_name="productattribute",
+        on_delete=models.PROTECT,
+    )
+    product_type = models.ForeignKey(
+        ProductType,
+        related_name="producttype",
+        on_delete=models.PROTECT,
+    )
+
+    class Meta:
+        unique_together = (("product_attribute", "product_type"),)
