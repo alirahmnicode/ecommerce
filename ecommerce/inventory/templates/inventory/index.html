@@ -3,309 +3,202 @@
 {% load static %}
 
 {% block content %}
-
-
-<div class="wrapper">
-    {% include 'inc/sidebar.html' %}
-
-    <div id="content">
-        <!-- header -->
-        {% include 'inc/header.html' %}
-        <!-- Categories -->
-        <div class="Categories">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="title">
-                            <h2>دسته بندی ها</h2>
-                            <ul class="categiri">
-                                {% for category in data.categories %}
-                                <li><a href="#">{{category}}</a></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- news brand -->
-                <div id="brand" class="brand-bg">
-                    <h3>برند ها</h3>
+<div class="container-fluid">
+    <div class="row min-vh-100">
+        <div class="col-12">
+            {% include 'inc/header.html' %}
+        </div>
+        <div class="col-12">
+            <!-- Main Content -->
+            <main class="row">
+                {% include 'inc/slider.html' %}
+                <!-- Latest Products -->
+                <div class="col-12">
                     <div class="row">
-
-                        {% for brand in data.brands %}
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 margintop">
-                            <div class="brand-box">
-                                <i><img src="{% static 'icon/p1.png' %}" />
-                                </i>
-                                <h4>{{brand.name}}</h4>
-                            </div>
-                            <a class="buynow" href="#">Buy now</a>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                <a class="seemore" href="#">See more</a>
-                <!-- end news brand -->
-
-                <!-- news shoes -->
-                <div id="shoes" class="shoes-bg">
-                    <h3>New shoes</h3>
-                    <div class="row">
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 margintop">
-                            <div class="shoes-box">
-                                <h5>Sale</h5>
-                                <i><img src="icon/s1.png" />
-                                </i>
-                                <h4>Price $<span class="nolmal">100</span></h4>
-
-                            </div>
-                            <a class="buynow" href="#">Buy now</a>
-                        </div>
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 margintop">
-                            <div class="shoes-box">
-                                <i><img src="icon/s2.png" /></i>
-                                <h4>Price $<span class="nolmal">100</span></h4>
-                            </div>
-                            <a class="buynow" href="#">Buy now</a>
-                        </div>
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                            <div class="shoes-box">
-                                <i><img src="icon/s3.png" /></i>
-                                <h4>Price $<span class="nolmal">100</span></h4>
-                            </div>
-                            <a class="buynow" href="#">Buy now</a>
-                        </div>
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                            <div class="shoes-box">
-                                <i><img src="icon/s4.png" /></i>
-                                <h4>Price $<span class="nolmal">100</span></h4>
-                            </div>
-                            <a class="buynow" href="#">Buy now</a>
-                        </div>
-                    </div>
-                </div>
-                <a class="seemore" href="#">See more</a>
-            </div>
-
-        </div>
-    </div>
-    <!-- end news shoes -->
-
-    <!-- end Categories -->
-
-    <section>
-        <!--  save -->
-
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="save">
-                        <div class="row">
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                                <div class="save_box">
-                                    <h3>save up to 50%</h3>
-                                    <a href="#">Buy now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- end save -->
-    </section>
-
-    <!-- news Jewellery -->
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div id="jewellery" class="Jewellery-bg">
-                    <h3>New Jewellery</h3>
-                    <div class="row">
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 margintop">
-                            <div class="Jewellery-box">
-                                <h5>Sale</h5>
-                                <i><img src="icon/j1.png" />
-                                </i>
-                                <h4>Price $<span class="nolmal">100</span></h4>
-
-                            </div>
-                            <a class="buynow" href="#">Buy now</a>
-                        </div>
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 margintop">
-                            <div class="Jewellery-box">
-                                <i><img src="icon/j2.png" /></i>
-                                <h4>Price $<span class="nolmal">100</span></h4>
-                            </div>
-                            <a class="buynow" href="#">Buy now</a>
-                        </div>
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                            <div class="Jewellery-box">
-                                <i><img src="icon/j3.png" /></i>
-                                <h4>Price $<span class="nolmal">100</span></h4>
-                            </div>
-                            <a class="buynow" href="#">Buy now</a>
-                        </div>
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                            <div class="Jewellery-box">
-                                <i><img src="icon/j4.png" /></i>
-                                <h4>Price $<span class="nolmal">100</span></h4>
-                            </div>
-                            <a class="buynow" href="#">Buy now</a>
-                        </div>
-                    </div>
-                </div>
-                <a class="seemore" href="#">See more</a>
-            </div>
-        </div>
-    </div>
-    <!-- end news Jewellery -->
-
-    <!-- news Kids -->
-    <div id="kids" class="Kids_background">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="Kids-bg">
-                        <h3>Kids and Babies</h3>
-                        <div class="row">
-                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 margintop">
-                                <div class="Kids-box">
-
-                                    <i><img src="icon/k1.png" />
-                                    </i>
-                                    <h4>Price $<span class="nolmal">100</span></h4>
-
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 margintop">
-                                <div class="Kids-box">
-                                    <i><img src="icon/k1.png" /></i>
-                                    <h4>Price $<span class="nolmal">100</span></h4>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                                <div class="Kids-box">
-                                    <i><img src="icon/k1.png" /></i>
-                                    <h4>Price $<span class="nolmal">100</span></h4>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                                <div class="Kids-box">
-                                    <i><img src="icon/k1.png" /></i>
-                                    <h4>Price $<span class="nolmal">100</span></h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- end news Kids -->
-
-    <!--  footer -->
-    <footer>
-        <div class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="footer_top">
+                        <div class="col-12 py-3">
                             <div class="row">
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                                    <a href="index.html"> <img class="logo1" src="images/logo1.png" /></a>
+                                <div class="col-12 text-center text-uppercase">
+                                    <h2>جدید ترین ها</h2>
                                 </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                                    <ul class="sociel">
-                                        <li> <a href="#"><i class="fa fa-facebook-f"></i></a></li>
-                                        <li> <a href="#"><i class="fa fa-twitter"></i></a></li>
-                                        <li> <a href="#"><i class="fa fa-instagram"></i></a></li>
-                                        <li> <a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                    </ul>
+                            </div>
+                            <div class="row">
+                                <!-- Product -->
+                                <div class="col-lg-3 col-sm-6 my-3">
+                                    <div class="col-12 bg-white text-center h-100 product-item">
+                                        <div class="row h-100">
+                                            <div class="col-12 p-0 mb-3">
+                                                <a href="product.html">
+                                                    <img src="images/image-1.jpg" class="img-fluid">
+                                                </a>
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                                <a href="product.html" class="product-name">Sony Alpha DSLR Camera</a>
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                                <span class="product-price-old">
+                                                    $500
+                                                </span>
+                                                <br>
+                                                <span class="product-price">
+                                                    $500
+                                                </span>
+                                            </div>
+                                            <div class="col-12 mb-3 align-self-end">
+                                                <button class="btn btn-outline-dark" type="button"><i
+                                                        class="fas fa-cart-plus me-2"></i>Add to cart</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Product -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Latest Products -->
+
+                <div class="col-12">
+                    <hr>
+                </div>
+
+                <!-- Latest Product -->
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12 py-3">
+                            <div class="row">
+                                <div class="col-12 text-center text-uppercase">
+                                    <h2>Latest Products</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Product -->
+                                <div class="col-lg-3 col-sm-6 my-3">
+                                    <div class="col-12 bg-white text-center h-100 product-item">
+                                        <span class="new">New</span>
+                                        <div class="row h-100">
+                                            <div class="col-12 p-0 mb-3">
+                                                <a href="product.html">
+                                                    <img src="images/image-1.jpg" class="img-fluid">
+                                                </a>
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                                <a href="product.html" class="product-name">Sony Alpha DSLR Camera</a>
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                                <span class="product-price-old">
+                                                    $500
+                                                </span>
+                                                <br>
+                                                <span class="product-price">
+                                                    $500
+                                                </span>
+                                            </div>
+                                            <div class="col-12 mb-3 align-self-end">
+                                                <button class="btn btn-outline-dark" type="button"><i
+                                                        class="fas fa-cart-plus me-2"></i>Add to cart</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Product -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Latest Products -->
+
+                <div class="col-12">
+                    <hr>
+                </div>
+
+                <!-- Top Selling Products -->
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12 py-3">
+                            <div class="row">
+                                <div class="col-12 text-center text-uppercase">
+                                    <h2>Top Selling Products</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <!-- Product -->
+                                <div class="col-lg-3 col-sm-6 my-3">
+                                    <div class="col-12 bg-white text-center h-100 product-item">
+                                        <div class="row h-100">
+                                            <div class="col-12 p-0 mb-3">
+                                                <a href="product.html">
+                                                    <img src="images/image-1.jpg" class="img-fluid">
+                                                </a>
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                                <a href="product.html" class="product-name">Sony Alpha DSLR Camera</a>
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                                <span class="product-price-old">
+                                                    $500
+                                                </span>
+                                                <br>
+                                                <span class="product-price">
+                                                    $500
+                                                </span>
+                                            </div>
+                                            <div class="col-12 mb-3 align-self-end">
+                                                <button class="btn btn-outline-dark" type="button"><i
+                                                        class="fas fa-cart-plus me-2"></i>Add to cart</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Product -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Top Selling Products -->
+
+                <div class="col-12 py-3 bg-light d-sm-block d-none">
+                    <div class="row">
+                        <div class="col-lg-3 col ms-auto large-holder">
+                            <div class="row">
+                                <div class="col-auto ms-auto large-icon">
+                                    <i class="fas fa-money-bill"></i>
+                                </div>
+                                <div class="col-auto me-auto large-text">
+                                    Best Price
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col large-holder">
+                            <div class="row">
+                                <div class="col-auto ms-auto large-icon">
+                                    <i class="fas fa-truck-moving"></i>
+                                </div>
+                                <div class="col-auto me-auto large-text">
+                                    Fast Delivery
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col me-auto large-holder">
+                            <div class="row">
+                                <div class="col-auto ms-auto large-icon">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="col-auto me-auto large-text">
+                                    Genuine Products
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
-                        <div class="row">
-                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 ">
-                                <div class="address">
-                                    <h3>Contact us </h3>
-                                    <ul class="loca">
-                                        <li>
-                                            <a href="#"><img src="icon/loc.png" alt="#" /></a>145 londone
-                                            <br>uk
-                                        </li>
-                                        <li>
-                                            <a href="#"><img src="icon/call.png" alt="#" /></a>+12586954775
-                                        </li>
-                                        <li>
-                                            <a href="#"><img src="icon/email.png" alt="#" /></a>demo@gmail.com
-                                        </li>
-
-                                    </ul>
-
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6">
-                                <div class="address">
-                                    <h3>customer service</h3>
-                                    <ul class="Menu_footer">
-                                        <li class="active"> <a href="#">My account</a> </li>
-                                        <li><a href="#">Wishlist</a> </li>
-                                        <li><a href="#">My Cart</a> </li>
-                                        <li><a href="#">Checkout</a> </li>
-                                        <li><a href="#">Login</a> </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6">
-                                <div class="address">
-                                    <h3>corporation</h3>
-                                    <ul class="Links_footer">
-                                        <li class="active"><a href="#">My account</a> </li>
-                                        <li><a href="#">Wishlist</a> </li>
-                                        <li><a href="#">My Cart</a> </li>
-                                        <li><a href="#"> Checkout</a> </li>
-                                        <li><a href="#">Login</a> </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-6 col-sm-6 ">
-                                <div class="address">
-                                    <h3>why choose us</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                        tempor incididunt ut labore et dolore magna </p>
-                                    <form class="newtetter">
-                                        <input class="tetter" placeholder="Your email" type="text" name="Your email">
-                                        <button class="submit">Subscribe</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="copyright">
-                <div class="container">
-                    <p>Copyright 2019 All Right Reserved By <a href="https://html.design/">Free html Templates</a>
-                    </p>
-                </div>
-            </div>
+            </main>
+            <!-- Main Content -->
         </div>
-
-    </footer>
-    <!-- end footer -->
-
-
+        <div class="col-12 align-self-end">
+            {% include 'inc/footer.html' %}
+        </div>
+    </div>
 </div>
-
-<div class="overlay"></div>
-
 
 {% endblock content %}
