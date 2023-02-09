@@ -1,5 +1,4 @@
-[
-    {
+[{
         "model": "inventory.product_category",
         "id": "1",
         "fields": {
