@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+
+{% endblock title %}
+
+{% block content %}
+<div class="row min-vh-100">
+    <!-- header -->
+    <div class="col-12">
+        {% include 'inc/header.html' %}
+    </div>
+    <!-- main conten -->
+    <div class="col-12">
+        <main class="row">
+            <div class="col-12 bg-white py-3 my-3">
+                <div class="row">
+                    <!-- Product Images -->
+                    <div class="col-lg-5 col-md-12 mb-3">
+                        <div class="col-12 mb-3">
+                            <div class="img-large border"
+                                style="background-image: url('http://localhost:8000/static/images/image-1.jpg')">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-sm-2 col-3">
+                                    <div class="img-small border"
+                                        style="background-image: url('http://localhost:8000/static/images/image-1.jpg')"
+                                        data-src="images/image-1.jpg"></div>
+                                </div>
+                                <div class="col-sm-2 col-3">
+                                    <div class="img-small border"
+                                        style="background-image: url('http://localhost:8000/static/images/image-2.jpg')"
+                                        data-src="images/image-2.jpg"></div>
+                                </div>
+                                <div class="col-sm-2 col-3">
+                                    <div class="img-small border"
+                                        style="background-image: url('http://localhost:8000/static/images/image-3.jpg')"
+                                        data-src="images/image-3.jpg"></div>
+                                </div>
+                                <div class="col-sm-2 col-3">
+                                    <div class="img-small border"
+                                        style="background-image: url('http://localhost:8000/static/images/image-4.jpg')"
+                                        data-src="images/image-4.jpg"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Images -->
+
+                    <!-- Product Info -->
+                    <div class="col-lg-5 col-md-9">
+                        <div class="col-12 product-name large">
+                            {{product.product__name}}
+                            <small>By <a href="#">{{product.brand}}</a></small>
+                        </div>
+                        <div class="col-12 px-0">
+                            <hr>
+                        </div>
+                        <div class="col-12">
+                            {{product.product__description}}
+                        </div>
+                    </div>
+                    <!-- Product Info -->
+
+                    <!-- Sidebar -->
+                    <div class="col-lg-2 col-md-3 text-center">
+                        <div class="col-12 sidebar h-100">
+                            <div class="row">
+                                <div class="col-12">
+                                    <span class="detail-price">
+                                        {{product.store_price}}
+                                    </span>
+                                    <span class="detail-price-old">
+                                        $2,800
+                                    </span>
+                                </div>
+                                <div class="col-xl-5 col-md-9 col-sm-3 col-5 mx-auto mt-3">
+                                    <div class="mb-3">
+                                        <label for="qty">Quantity</label>
+                                        <input type="number" id="qty" min="1" value="1" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <ul class="list-unstyled w-75 mx-auto">
+                                        {% for y in z %}
+                                        <li class="text-capitalize">
+                                            {{y.product_attribute__name}}:
+                                            <ul class="list-unstyled">
+                                                <select class="form-select" aria-label="Default select example">
+                                                    {% for a in filter %}
+                                                    {% with a.attribute_values__product_attribute__name as atvn %}
+                                                    {% if atvn == y.product_attribute__name %}
+                                                    <li class="text-capitalize">
+                                                        {% if a.attribute_values__attribute_value in product.field_a %}
+                                                        <option selected>{{a.attribute_values__attribute_value}}
+                                                        </option>
+                                                        {% else %}
+                                                        <option>{{a.attribute_values__attribute_value}}
+                                                        </option>
+                                                        {% endif %}
+                                                    </li>
+                                                    {% endif %}
+                                                    {% endwith %}
+                                                    {% endfor %}
+                                                </select>
+                                            </ul>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <button class="btn btn-outline-dark" type="button"><i
+                                            class="fas fa-cart-plus me-2"></i>Add to cart</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sidebar -->
+                </div>
+            </div>
+        </main>
+    </div>
+    <!-- footer -->
+    <div class="col-12 align-self-end">
+        {% include 'inc/footer.html' %}
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block script %}
+<script>
+</script>
+{% endblock script %}
