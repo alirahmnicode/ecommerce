@@ -21,8 +21,7 @@ class Cart:
             # update quantity and item price
             product = self.products[product_id]["product"]
             product["quantity"] += 1
-            item_price = product["store_price"] * product["quantity"]
-            self.products[product_id]["item_price"] = item_price
+            self.set_item_price(product, product_id)
         else:
             # add new item to cart
             product = self.get_product(product_id)
@@ -31,8 +30,20 @@ class Cart:
                 "item_price": product["store_price"],
             }
         # update total price
-        self.cart["total_price"] = self.get_total_price()
+        self.get_total_price()
         self.save()
+
+    def reduce(self, product_id):
+        product_id = str(product_id)
+        product = self.products[product_id]["product"]
+        product["quantity"] -= 1
+        self.set_item_price(product, product_id)
+        self.get_total_price()
+        self.save()
+
+    def set_item_price(self, product, product_id):
+        item_price = product["store_price"] * product["quantity"]
+        self.products[product_id]["item_price"] = item_price
 
     def get_total_price(self):
         total_price = 0
@@ -42,7 +53,7 @@ class Cart:
                 for p in self.products.values()
             ]
         )
-        return total_price
+        self.cart["total_price"] = total_price
 
     def get_product(self, product_id):
         product = (
