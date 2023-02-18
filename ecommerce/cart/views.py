@@ -11,10 +11,9 @@ def cart(request):
 
 
 def product_quanity(request, product_id, action):
-    print(product_id, action)
     cart = Cart(request)
     if action == "add":
         cart.add(product_id)
     else:
         cart.reduce(product_id)
-    return JsonResponse({"a": 1})
+    return JsonResponse({"cart": request.session.get("cart")})
