@@ -37,7 +37,10 @@ class Cart:
         product_id = str(product_id)
         product = self.products[product_id]["product"]
         product["quantity"] -= 1
-        self.set_item_price(product, product_id)
+        if product["quantity"] == 0:
+            del self.products[product_id]
+        else:
+            self.set_item_price(product, product_id)
         self.get_total_price()
         self.save()
 
