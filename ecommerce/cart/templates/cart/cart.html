@@ -38,7 +38,7 @@
                                     <tbody>
                                         {% for i, item in cart.products.items %}
                                         {% with item.product as product %}
-                                        <tr>
+                                        <tr id="product-{{i}}">
                                             <td>
                                                 <img src="images/image-2.jpg" class="img-fluid">
                                                 {{product.product__name}}
@@ -61,8 +61,8 @@
                                                 {{item.item_price}}
                                             </td>
                                             <td>
-                                                <button class="btn btn-link text-danger"><i
-                                                        class="fas fa-times"></i></button>
+                                                <div data-product_id="{{i}}" class="btn text-danger"
+                                                    onclick="remove(this)"><i class="fas fa-times"></i></div>
                                             </td>
                                         </tr>
                                         {% endwith %}
@@ -132,6 +132,18 @@
         }
 
         $('#total-price').text(cart.total_price)
+    }
+
+    function remove(thisElement) {
+        product_id = thisElement.dataset.product_id
+        $.ajax({
+            url: `${url}remove/${product_id}/`,
+            type: 'GET',
+            success: function (data) {
+                if (data.delete)
+                    $(`#product-${product_id}`).remove()
+            }
+        })
     }
 </script>
 {% endblock script %}

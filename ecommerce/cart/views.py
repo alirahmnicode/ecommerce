@@ -17,3 +17,9 @@ def product_quanity(request, product_id, action):
     else:
         cart.reduce(product_id)
     return JsonResponse({"cart": request.session.get("cart")})
+
+
+def remove(request, product_id):
+    cart = Cart(request)
+    cart.remove(product_id)
+    return JsonResponse({"delete": True})

@@ -9,4 +9,5 @@ urlpatterns = [
     path(
         "quanity/<int:product_id>/<str:action>/", views.product_quanity, name="quanity"
     ),
+    path("remove/<int:product_id>/", views.remove, name="remove"),
 ]
