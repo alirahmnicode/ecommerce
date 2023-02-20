@@ -43,11 +43,13 @@ class Cart:
         else:
             self.set_item_price(product, product_id)
         self.get_total_price()
+        self.set_total_quantity()
         self.save()
 
     def remove(self, product_id):
         product_id = str(product_id)
         del self.products[product_id]
+        self.set_total_quantity()
         self.save()
 
     def set_item_price(self, product, product_id):
