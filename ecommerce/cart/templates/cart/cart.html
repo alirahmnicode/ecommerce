@@ -116,7 +116,7 @@
             }
         }
         $.ajax({
-            url: `${url}quanity/${product_id}/${act}/`,
+            url: `${url}quantity/${product_id}/${act}/`,
             type: 'GET',
             success: function (data) {
                 updateCart(data.cart)
