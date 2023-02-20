@@ -10,7 +10,7 @@ def cart(request):
     return render(request, "cart/cart.html", {"cart": cart})
 
 
-def product_quanity(request, product_id, action):
+def product_quantity(request, product_id, action):
     cart = Cart(request)
     if action == "add":
         cart.add(product_id)
