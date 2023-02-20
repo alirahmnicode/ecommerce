@@ -31,6 +31,7 @@ class Cart:
             }
         # update total price
         self.get_total_price()
+        self.set_total_quantity()
         self.save()
 
     def reduce(self, product_id):
@@ -72,6 +73,10 @@ class Cart:
         product_price = product["store_price"]
         product["store_price"] = float(product_price)
         return product
+
+    def set_total_quantity(self):
+        self.cart["quantity"] = len(self.products.keys())
+        self.save()
 
     def save(self):
         self.session.modified = True
