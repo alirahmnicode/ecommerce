@@ -1,16 +1,19 @@
 const addBtn = $('.add-to-cart')
-const url_location = window.location
+const url_origin = window.location.origin
 const action = "add"
 
 
 addBtn.click(function () {
     const product_id = this.dataset.product_id
-
     $.ajax({
-        url: `${url_location}cart/quantity/${product_id}/${action}/`,
+        url: `${url_origin}/cart/quantity/${product_id}/${action}/`,
         type: 'GET',
-        success: (data) => updateCartCounter(data)
+        success: function (data) {
+            console.log('ali')
+            updateCartCounter(data)
+        }
     })
+
 })
 
 
