@@ -1,8 +1,8 @@
-import pprint
-
+from django.core.paginator import Paginator
 from django.shortcuts import render
 
 from . import models
+from .filters import ProductFiler
 
 
 # Create your views here.
@@ -55,10 +55,15 @@ def product_detail(request, slug):
         .distinct()
         .values("product_attribute__name")
     )
-    pprint.pprint(product["field_a"])
     context = {"product": product, "filter": y, "z": z}
     return render(request, "inventory/product_detail.html", context)
 
 
 def products_filter(request):
-    return render(request, "inventory/filter.html")
+    product = models.ProductInventory.objects.all()
+    f = ProductFiler(request.GET, queryset=product)
+    p = Paginator(f.qs, 20)
+    page_number = request.GET.get("page")
+    page_obj = p.get_page(page_number)
+    context = {"filter": f, "objects": page_obj}
+    return render(request, "inventory/filter.html", context)
