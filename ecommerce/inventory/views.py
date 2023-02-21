@@ -58,3 +58,7 @@ def product_detail(request, slug):
     pprint.pprint(product["field_a"])
     context = {"product": product, "filter": y, "z": z}
     return render(request, "inventory/product_detail.html", context)
+
+
+def products_filter(request):
+    return render(request, "inventory/filter.html")

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+
+{% endblock title %}
+
+{% block content %}
+<div class="row min-vh-100">
+    <!-- header -->
+    <div class="col-12">
+        {% include 'inc/header.html' %}
+    </div>
+    <!-- main conten -->
+    <div class="col-12">
+        <main class="row">
+            <div class="col-12 bg-white py-3 my-3">
+                <div class="row">
+                    <!-- Sidebar -->
+                    <div class="col-lg-2 col-md-3 text-center">
+                        <div class="col-12 sidebar h-100">
+                            <div class="row">
+                                <div class="col-12">
+                                    <span class="detail-price">
+                                        {{product.store_price}}
+                                    </span>
+                                    <span class="detail-price-old">
+                                        $2,800
+                                    </span>
+                                </div>
+                                <div class="col-12">
+
+                                </div>
+                                <div class="col-12 mt-3">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sidebar -->
+                </div>
+            </div>
+        </main>
+    </div>
+    <!-- footer -->
+    <div class="col-12 align-self-end">
+        {% include 'inc/footer.html' %}
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block script %}
+<script>
+</script>
+{% endblock script %}
