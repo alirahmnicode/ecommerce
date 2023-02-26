@@ -125,6 +125,9 @@ class Brand(models.Model):
         help_text=_("format: required, unique, max-255"),
     )
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class ProductAttribute(models.Model):
     """

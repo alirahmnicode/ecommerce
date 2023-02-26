@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # third app
+    "django_filters",
     # local app
     "ecommerce.dashboard",
     "ecommerce.inventory",
