@@ -3,6 +3,7 @@ from django.shortcuts import render
 
 from . import models
 from .filters import ProductFiler
+from .sort import Sort
 
 
 # Create your views here.
@@ -61,6 +62,11 @@ def product_detail(request, slug):
 
 def products_filter(request):
     product = models.ProductInventory.objects.all()
+    if request.GET.get("sort"):
+        sort_field = request.GET.get("sort_field")
+        ascending = request.GET.get("ascending")
+        sort = Sort(product)
+        product = sort.sort_by(sort_field, ascending)
     f = ProductFiler(request.GET, queryset=product)
     p = Paginator(f.qs, 20)
     page_number = request.GET.get("page")

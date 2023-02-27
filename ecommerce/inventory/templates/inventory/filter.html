@@ -88,10 +88,33 @@
 
                     <!-- Sidebar -->
                     <div class="col-lg-2 col-md-3 text-center">
+                        <div>
+                            <span>Filter by</span>
+                        </div>
                         <form method="get">
                             {{ filter.form.as_p }}
                             <input type="submit" />
                         </form>
+                        <div class="sort mt-3">
+                            <div>
+                                <span>Sort by</span>
+                            </div>
+                            <div>
+                                <span>Price:</span>
+                                <a href="?{% update_params sort='true' sort_field='store_price' ascending='true' %}"><i
+                                        class="bi bi-arrow-up-circle"></i></a>
+                                <a href="?{% update_params sort='true' sort_field='store_price' ascending='false' %}"><i
+                                        class="bi bi-arrow-down-circle"></i></a>
+
+                            </div>
+                            <div>
+                                <span>Date:</span>
+                                <a href="?{% update_params sort='true' sort_field='created_at' ascending='true' %}"><i
+                                        class="bi bi-arrow-up-circle"></i></a>
+                                <a href="?{% update_params sort='true' sort_field='created_at' ascending='false' %}"><i
+                                        class="bi bi-arrow-down-circle"></i></a>
+                            </div>
+                        </div>
                     </div>
                     <!-- Sidebar -->
                 </div>
