@@ -77,39 +77,10 @@
                                         $2,800
                                     </span>
                                 </div>
-                                <div class="col-12">
-                                    <ul class="list-unstyled w-75 mx-auto">
-                                        {% for y in z %}
-                                        <li class="text-capitalize">
-                                            {{y.product_attribute__name}}:
-                                            <ul class="list-unstyled">
-                                                <select class="form-select" aria-label="Default select example">
-                                                    {% for a in filter %}
-                                                    {% with a.attribute_values__product_attribute__name as atvn %}
-                                                    {% if atvn == y.product_attribute__name %}
-                                                    <li class="text-capitalize">
-                                                        {% if a.attribute_values__attribute_value in product.field_a %}
-                                                        <option selected>{{a.attribute_values__attribute_value}}
-                                                        </option>
-                                                        {% else %}
-                                                        <option>{{a.attribute_values__attribute_value}}
-                                                        </option>
-                                                        {% endif %}
-                                                    </li>
-                                                    {% endif %}
-                                                    {% endwith %}
-                                                    {% endfor %}
-                                                </select>
-                                            </ul>
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
                                 <div class="col-12 mt-3">
                                     <button data-product_id="{{product.id}}" class="add-to-cart btn btn-outline-dark"
                                         type="button"><i class="fas fa-cart-plus me-2"></i>Add to cart</button>
                                 </div>
-
                             </div>
                         </div>
                     </div>
