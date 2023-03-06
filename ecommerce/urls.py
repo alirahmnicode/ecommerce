@@ -8,6 +8,7 @@ urlpatterns = [
     path("", include("ecommerce.inventory.urls", namespace="inventory")),
     path("demo/", include("ecommerce.demo.urls", namespace="demo")),
     path("cart/", include("ecommerce.cart.urls", namespace="cart")),
+    path("user/", include("ecommerce.account.urls", namespace="user")),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
