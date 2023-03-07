@@ -4,7 +4,6 @@ register = template.Library()
 
 
 def update_params(context, **kwargs):
-    print("page" * 10)
     query = context["request"].GET.copy()
     for i, v in kwargs.items():
         query[i] = v
