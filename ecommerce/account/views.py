@@ -2,8 +2,10 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import redirect, render
+from django.views import View
 
 from .forms import CustomUserCreationForm
+from .models import Profile
 
 
 def user_signup(request):
@@ -44,3 +46,9 @@ def user_logout(request):
     logout(request)
     messages.info(request, "با موفقیت از حساب کاربری خارج شدید.")
     return redirect("inventory:index")
+
+
+class ProfileView(View):
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        return render(request, "account/profile/profile.html", {user: "user"})
