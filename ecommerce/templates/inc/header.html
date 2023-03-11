@@ -28,6 +28,8 @@
                     <i class="bi bi-funnel"></i></a>
 
                 {% if request.user.is_authenticated %}
+                <a href="{% url 'user:profile' %}" class="header-item">
+                    <i class="bi bi-person-fill"></i></a>
                 <a href="{% url 'user:logout' %}" class="header-item">
                     <span>log out</span>
                     <i class="bi bi-funnel"></i></a>

@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.forms import ModelForm
 
-from .models import CustomUser
+from .models import CustomUser, Profile
 
 
 class BaseCustomUserForm(ModelForm):
@@ -26,3 +26,9 @@ class CustomUserChangeForm(BaseCustomUserForm, UserChangeForm):
     class Meta:
         model = CustomUser
         fields = ("phone",)
+
+
+class ProfileUpdateForm(BaseCustomUserForm, ModelForm):
+    class Meta:
+        model = Profile
+        exclude = ("user",)

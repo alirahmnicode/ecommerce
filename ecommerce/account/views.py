@@ -1,10 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
-from django.shortcuts import redirect, render
+from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import HttpResponse, redirect, render
+from django.urls import reverse_lazy
 from django.views import View
+from django.views.generic import UpdateView
 
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, ProfileUpdateForm
 from .models import Profile
 
 
@@ -51,4 +54,23 @@ def user_logout(request):
 class ProfileView(View):
     def get(self, request, *args, **kwargs):
         user = request.user
-        return render(request, "account/profile/profile.html", {user: "user"})
+        profile_form = ProfileUpdateForm(instance=user.profile)
+        context = {
+            "user": user,
+            "profile_form": profile_form,
+        }
+        return render(request, "account/profile/profile.html", context)
+
+
+class UpdateProfileView(View):
+    def post(self, request, *args, **kwargs):
+        try:
+            profile = request.user.profile
+            form = ProfileUpdateForm(request.POST, instance=profile)
+            if form.is_valid():
+                form.save()
+                return redirect("user:profile")
+            else:
+                return redirect(request.META.get("HTTP_REFERER"))
+        except ObjectDoesNotExist:
+            return HttpResponse("Exception: Data not found")
