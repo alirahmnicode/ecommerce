@@ -387,3 +387,30 @@ table td img {
 .brand {
     border-radius: 50%;
 }
+
+/* search */
+#search-result {
+    height: 100%;
+    position: absolute;
+    top: 44px;
+    z-index: 1;
+    width: 100%;
+    background: white;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+#search-result img {
+    width: 100px;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.result-items {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+}

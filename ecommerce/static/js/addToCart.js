@@ -9,7 +9,6 @@ addBtn.click(function () {
         url: `${url_origin}/cart/quantity/${product_id}/${action}/`,
         type: 'GET',
         success: function (data) {
-            console.log('ali')
             updateCartCounter(data)
         }
     })
