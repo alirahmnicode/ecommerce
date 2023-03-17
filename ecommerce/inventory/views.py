@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator
+from django.http import JsonResponse
 from django.shortcuts import render
 
 from . import models
@@ -51,3 +52,29 @@ def products_filter(request):
     page_obj = p.get_page(page_number)
     context = {"filter": f, "objects": page_obj}
     return render(request, "inventory/filter.html", context)
+
+
+def search(request):
+    query = request.GET.get("q")
+    template = request.GET.get("template")
+
+    if query:
+        # search
+        products = models.Product.objects.filter(name__icontains=query).values(
+            "name", "slug", "product__store_price", "id"
+        )
+        categories = models.Category.objects.filter(name__icontains=query).values(
+            "name"
+        )
+        data = {"products": list(products)[:4], "categories": list(categories)[:4]}
+    else:
+        data = {}
+        products = []
+
+    if template:
+        p = Paginator(products, 20)
+        page_number = request.GET.get("page")
+        page_obj = p.get_page(page_number)
+        return render(request, "inventory/search_result.html", {"objects": page_obj})
+    else:
+        return JsonResponse(data=data)

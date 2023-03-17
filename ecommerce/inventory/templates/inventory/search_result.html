@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load update_params %}
+
+{% block content %}
+<div class="row min-vh-100">
+    <div class="col-12">
+        {% include 'inc/header.html' %}
+    </div>
+    <div class="col-12">
+        <!-- Main Content -->
+        <main class="row">
+            <!-- Latest Products -->
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12 py-3">
+                        <div class="row">
+                            <div class="col-12 text-center text-uppercase">
+                                <h2>جدید ترین ها</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            {% for obj in objects %}
+                            <!-- Product -->
+                            <div class="col-lg-3 col-sm-6 my-3">
+                                <div class="col-12 bg-white text-center h-100 product-item">
+                                    <span class="new">New</span>
+                                    <div class="row h-100">
+                                        <div class="col-12 p-0 mb-3">
+
+                                            <a href="{% url 'inventory:detail' slug=obj.slug%}">
+                                                <img src="{% static 'images/image-1.jpg' %}" class="img-fluid">
+                                            </a>
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <a href="{% url 'inventory:detail' slug=obj.slug%}"
+                                                class="product-name">{{obj.name}}</a>
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <span class="product-price-old">
+                                                $500
+                                            </span>
+                                            <br>
+                                            <span class="product-price">
+                                                {{obj.sale_price}}
+                                            </span>
+                                        </div>
+                                        <div class="col-12 mb-3 align-self-end">
+                                            <button data-product_id="{{obj.pk}}"
+                                                class="add-to-cart btn btn-outline-dark" type="button">Add to
+                                                cart</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Product -->
+                            {% endfor %}
+                            <!-- pagination -->
+                            <div class="col-12">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        {% if objects.has_previous %}
+                                        <li class="page-item">
+                                            <a href="?{% update_params page=1 %}">1</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                                href="?{% update_params page=objects.previous_page_number %}"><i
+                                                    class="fas fa-long-arrow-alt-left"></i></a>
+                                        </li>
+                                        {% endif %}
+                                        <li class="page-item active" aria-current="page">
+                                            <a class="page-link" href="#">{{ objects.number }} </a>
+                                        </li>
+                                        {% if objects.has_next %}
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                                href="?{% update_params page=objects.next_page_number %}"><i
+                                                    class="fas fa-long-arrow-alt-right"></i></a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a
+                                                href="?{% update_params page=objects.paginator.num_pages %}">{{objects.paginator.num_pages}}</a>
+                                        </li>
+                                        {% endif %}
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Latest Products -->
+        </main>
+        <!-- Main Content -->
+    </div>
+    <div class="col-12 align-self-end">
+        {% include 'inc/footer.html' %}
+    </div>
+</div>
+
+{% endblock content %}

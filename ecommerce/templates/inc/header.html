@@ -10,10 +10,14 @@
             </div>
             <div class="col-lg-5 mx-auto mt-4 mt-lg-0">
                 <form action="#">
-                    <div class="form-group">
+                    <div class="form-group" style="position: relative;">
                         <div class="input-group">
-                            <input type="search" class="form-control border-dark" placeholder="Search..." required>
-                            <button class="btn btn-outline-dark"><i class="fas fa-search"></i></button>
+                            <input id="search" type="search" class="form-control border-dark" placeholder="Search..."
+                                required>
+                        </div>
+                        <div id="search-result">
+                            <div class="result-items">
+                            </div>
                         </div>
                     </div>
                 </form>
