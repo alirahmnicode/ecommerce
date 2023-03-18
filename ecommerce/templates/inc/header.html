@@ -62,18 +62,14 @@
                     <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
                         {% for category in categories|slice:":4" %}
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle"
+                            <a class="nav-link"
                                 href="{% url 'inventory:filter' %}?{% update_params product__category=category.id %}"
                                 id="electronics">{{category}}</a>
-                            <!-- <div class="dropdown-menu" aria-labelledby="electronics">
-                                <a class="dropdown-item" href="category.html">Computers</a>
-                                <a class="dropdown-item" href="category.html">Mobile Phones</a>
-                                <a class="dropdown-item" href="category.html">Television Sets</a>
-                                <a class="dropdown-item" href="category.html">DSLR Cameras</a>
-                                <a class="dropdown-item" href="category.html">Projectors</a>
-                            </div> -->
                         </li>
                         {% endfor %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="{% url 'inventory:filter' %}" id="electronics">بیشتر</a>
+                        </li>
                     </ul>
                 </div>
             </nav>

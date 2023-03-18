@@ -418,3 +418,7 @@ table td img {
 #search-result {
     display: none;
 }
+
+form select {
+    width: 100%;
+}
