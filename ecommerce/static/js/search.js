@@ -1,5 +1,3 @@
-// var url_origin = window.location.origin
-
 $(document).ready(function () {
     const searchInput = $('#search')
     searchInput.keyup(() => {
@@ -22,28 +20,48 @@ function createElement(data) {
     var resultItems = $('.result-items')
     resultItems.empty()
 
-    for (const key in data) {
-        // add tag element
-        resultItems.append(`
+    resultItems.append(`
             <div class="p-2 mb-2">
-                <span>search in ${key}</span>
+                <span>search in Product:</span>
             </div>
-        `)
+    `)
 
-        // add items
-        data[key].forEach(element => {
-            var item = `<div class="result-item p-2 mb-2">
-            <div><a href=>${element['name']}</a></div>
-            <div><img src="../.././static/images/image-1.jpg" alt=""></div>
-            </div>`
-            resultItems.append(item)
-        });
+    // add products items
+    data['products'].forEach(element => {
+        var item = `<div class="result-item p-2 mb-2">
+        <div><a href="${url_origin}/product/detail/${element['slug']}/">${element['name']}</a></div>
+        <div><img src="../.././static/images/image-1.jpg" alt=""></div>
+        </div>`
+        resultItems.append(item)
+    });
 
+
+    if (data.products.length > 3) {
         resultItems.append(`
             <div class="p-2 mb-2">
             <a href="${url_origin}/search/?q=${query}&template=true">بیشتر</a>
             </div>
         `)
-
     }
+
+    resultItems.append(`
+            <div class="p-2 mb-2">
+                <span>search in Category:</span>
+            </div>
+    `)
+
+    // add categories items
+    data['categories'].forEach(element => {
+        var item = `<div class="result-item p-2 mb-2">
+        <div>
+            <a href="${url_origin}/products/filter/?product__category=${element.id}">${element['name']}</a>
+        </div>
+        <div><img src="../.././static/images/image-1.jpg" alt=""></div>
+        </div>`
+        resultItems.append(item)
+    });
+
+
+
+    $('.close').parent().css("display", "block")
 }

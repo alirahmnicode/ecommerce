@@ -414,3 +414,7 @@ table td img {
     flex-direction: column;
     background: #fff;
 }
+
+#search-result {
+    display: none;
+}

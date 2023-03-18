@@ -61,10 +61,14 @@ def search(request):
     if query:
         # search
         products = models.Product.objects.filter(name__icontains=query).values(
-            "name", "slug", "product__store_price", "id"
+            "name",
+            "slug",
+            "product__store_price",
+            "id",
         )
         categories = models.Category.objects.filter(name__icontains=query).values(
-            "name"
+            "name",
+            "id",
         )
         data = {"products": list(products)[:4], "categories": list(categories)[:4]}
     else:
