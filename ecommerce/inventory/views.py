@@ -5,15 +5,19 @@ from django.shortcuts import render
 from . import models
 from .filters import ProductFiler
 from .sort import Sort
+from .utils import random_choice_list
 
 
 # Create your views here.
 def index(request):
     brands = models.Brand.objects.all()
+    brands_list = random_choice_list(list(brands), 3)
     new_products = models.ProductInventory.objects.all()
+    best_selling = new_products.order_by("-stock__units_sold")
     data = {
-        "brands": brands,
+        "brands": brands_list,
         "new_products": new_products,
+        "best_selling": best_selling,
     }
     return render(request, "inventory/index.html", {"data": data})
 
