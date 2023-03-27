@@ -10,8 +10,16 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}?{% now 'U' %}">
     <link rel="stylesheet" href="{% static 'css/all.min.css' %}?{% now 'U' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}?{% now 'U' %}">
+    <!-- OwlCarouse css -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+    <!-- OwlCarouse css -->
     <!-- bootstrap icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <title>
         {% block title %}
 
@@ -30,15 +38,89 @@
             {% endfor %}
     </ul>
     {% endif %}
-    <div class="container-fluid">
-        {% block content %}
-        {% endblock content %}
-    </div>
+    {% block content %}
+    {% endblock content %}
     <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/script.js' %}?{% now 'U' %}"></script>
     <script type="text/javascript" src="{% static 'js/addToCart.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/search.js' %}?{% now 'U' %}"></script>
+    <!-- OwlCarouse js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
+    <!-- OwlCarouse js -->
+    <script>
+        window.onscroll = function () {
+            myFunction()
+        };
+
+        var header = document.getElementById("head");
+        var sticky = header.offsetTop;
+
+        function myFunction() {
+            if (window.pageYOffset > sticky) {
+                header.classList.add("sticky");
+            } else {
+                header.classList.remove("sticky");
+            }
+        }
+
+        var menuitem = document.getElementById("menuitem");
+        menuitem.style.maxHeight = "0px";
+
+        function menutoggle() {
+            if (menuitem.style.maxHeight == '0px') {
+                menuitem.style.maxHeight = "200px"
+            } else {
+                menuitem.style.maxHeight = "0px"
+            }
+        }
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            margin: 20,
+            nav: true,
+            dots: false,
+            navText: ["<i class='far fa-arrow-left'></i>", "<i class='far fa-arrow-right'></i>"],
+            responsive: {
+                511: {
+                    items: 1
+                },
+                768: {
+                    items: 2
+                },
+                1000: {
+                    items: 4
+                }
+            }
+        })
+        $('.owl-carousel2').owlCarousel({
+            loop: true,
+            margin: 20,
+            nav: true,
+            dots: false,
+            navText: ["<i class='far fa-arrow-left'></i>", "<i class='far fa-arrow-right'></i>"],
+            responsive: {
+                511: {
+                    items: 1
+                },
+                768: {
+                    items: 4
+                },
+                1000: {
+                    items: 6
+                }
+            }
+        })
+
+        $('.owl-carousel3').owlCarousel({
+            loop: true,
+            margin: 20,
+            nav: true,
+            dots: false,
+            navText: ["<i class='far fa-arrow-left'></i>", "<i class='far fa-arrow-right'></i>"],
+            items: 1,
+        })
+    </script>
 
 
     {% block script %}

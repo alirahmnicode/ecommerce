@@ -3,140 +3,114 @@
 {% load update_params %}
 
 {% block content %}
-<div class="row min-vh-100">
-    <div class="col-12">
-        {% include 'inc/header.html' %}
-    </div>
-    <div class="col-12">
-        <!-- Main Content -->
-        <main class="row">
-            {% include 'inc/slider.html' %}
-            <!-- Latest Products -->
-            <div class="col-12">
-                <div class="row">
-                    <div class="col-12 py-3">
-                        <div class="row">
-                            <div class="col-12 text-center text-uppercase">
-                                <h2>جدید ترین ها</h2>
-                            </div>
-                        </div>
-                        <div class="row">
-                            {% for product in data.new_products|slice:"8" %}
-                            <!-- Product -->
-                            <div class="col-lg-3 col-sm-6 my-3">
-                                <div class="col-12 bg-white text-center h-100 product-item">
-                                    <span class="new">New</span>
-                                    <div class="row h-100">
-                                        <div class="col-12 p-0 mb-3">
-                                            <a href="{% url 'inventory:detail' slug=product.product.slug%}">
-                                                <img src="{% static 'images/image-1.jpg' %}" class="img-fluid">
-                                            </a>
-                                        </div>
-                                        <div class="col-12 mb-3">
-                                            <a href="{% url 'inventory:detail' slug=product.product.slug%}"
-                                                class="product-name">{{product.product.name}}</a>
-                                        </div>
-                                        <div class="col-12 mb-3">
-                                            <span class="product-price-old">
-                                                $500
-                                            </span>
-                                            <br>
-                                            <span class="product-price">
-                                                {{product.sale_price}}
-                                            </span>
-                                        </div>
-                                        <div class="col-12 mb-3 align-self-end">
-                                            <button data-product_id="{{product.pk}}"
-                                                class="add-to-cart btn btn-outline-dark" type="button">Add to
-                                                cart</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Product -->
-                            {% endfor %}
-                        </div>
+{% include 'inc/head.html' %}
+{% include 'inc/header.html' %}
+<!-- home products -->
+<section class="home_product">
+    <div class="container flex">
+        <div class="left_one">
+            <div class="box">
+                <div class="img">
+                    <img src="image/home1.png" alt="">
+                </div>
+                <div class="text top">
+                    <h5>SPECIAL OFFER</h5>
+                    <h2> <span>Comfortable</span> original Cotton Sneaker </h2>
+                    <p> Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
+                        id est
+                        laborum.</p>
+                    <a href="#">SHOP NOW</a>
+                </div>
+            </div>
+        </div>
+        <div class="right_one">
+            <div class="box flex1">
+                <div class="left">
+                    <div class="img">
+                        <img src="image/home2.png" alt="">
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="text">
+                        <h5>SPECIAL OFFER</h5>
+                        <h2> <span>Minimalist</span> genuine Cotton jacket </h2>
+                        <p> Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+                            anim id est
+                            laborum.</p>
+                        <a href="#">SHOP NOW</a>
                     </div>
                 </div>
             </div>
-            <!-- Latest Products -->
 
-            <div class="col-12">
-                <hr>
-            </div>
-
-            <!-- Brands -->
-            <div class="col-12">
-                <div class="row">
-                    <div class="col-12 py-3">
-                        <div class="row">
-                            <div class="col-12 text-center text-uppercase">
-                                <h2>برند ها</h2>
-                            </div>
-                        </div>
-                        <div class="row">
-                            {% for brand in data.brands|slice:"8" %}
-                            <!-- Brand -->
-                            <div class="col-lg-3 col-sm-6 my-3">
-                                <div class="brand col-12 bg-white text-center h-100 product-item">
-                                    <div class="row h-100">
-                                        <div class="col-12 p-0 mb-3">
-                                            <a href="{% url 'inventory:filter' %}?brand={{brand.id}}">
-                                                <img src="{% static 'images/image-1.jpg' %}" class="img-fluid">
-                                            </a>
-                                        </div>
-                                        <div class="col-12 mb-3">
-                                            <a href="{% url 'inventory:filter' %}?brand={{brand.id}}"
-                                                class="product-name">{{brand.name}}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Product -->
-                            {% endfor %}
-                        </div>
+            <div class="box flex1">
+                <div class="right">
+                    <div class="text">
+                        <h5>SPECIAL OFFER</h5>
+                        <h2> <span>stylish</span> genuine comfy t-shirts </h2>
+                        <p> Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+                            anim id est
+                            laborum.</p>
+                        <a href="#">SHOP NOW</a>
+                    </div>
+                </div>
+                <div class="left">
+                    <div class="img">
+                        <img src="image/home3.png" alt="">
                     </div>
                 </div>
             </div>
-            <!-- Brandss -->
-            <div class="col-12 py-3 bg-light d-sm-block d-none">
-                <div class="row">
-                    <div class="col-lg-3 col ms-auto large-holder">
-                        <div class="row">
-                            <div class="col-auto ms-auto large-icon">
+        </div>
+    </div>
+</section>
 
-                            </div>
-                            <div class="col-auto me-auto large-text">
-                                Best Price
-                            </div>
-                        </div>
+<!-- new products -->
+<section class="flash Deals">
+    <div class="container mtop">
+        <div class="heading flex1">
+            <h2><i class="fas fa-bolt"></i> flash Deals</h2>
+            <a href="#">View all <i class="fas fa-caret-right"></i></a>
+        </div>
+        <div class="owl-carousel owl-theme">
+            {% for product in data.new_products|slice:"8" %}
+            <div class="item">
+                <div class="img">
+                    <span>50% off</span>
+                    <img src="{% static 'images/image-1.jpg' %}" alt="">
+                    <div class="view">
+                        <i class="fas fa-eye"></i> <br>
+                        <i class="far fa-heart"></i>
                     </div>
-                    <div class="col-lg-3 col large-holder">
-                        <div class="row">
-                            <div class="col-auto ms-auto large-icon">
-                            </div>
-                            <div class="col-auto me-auto large-text">
-                                Fast Delivery
-                            </div>
-                        </div>
+                </div>
+
+                <div class="text">
+                    <h5><a href="{% url 'inventory:detail' slug=product.product.slug%}"
+                            class="product-name">{{product.product.name}}</a></h5>
+                    <div class="star flex">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
                     </div>
-                    <div class="col-lg-3 col me-auto large-holder">
-                        <div class="row">
-                            <div class="col-auto ms-auto large-icon">
-                            </div>
-                            <div class="col-auto me-auto large-text">
-                                Genuine Products
-                            </div>
-                        </div>
+                    <div class="price flex1">
+                        <p>{{product.sale_price}}<label> $250.00</label></p>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div>
+                        <button data-product_id="{{product.pk}}" class="add-to-cart btn btn-outline-dark"
+                            type="button">Add to
+                            cart</button>
                     </div>
                 </div>
             </div>
-        </main>
-        <!-- Main Content -->
+            {% endfor %}
+        </div>
     </div>
-    <div class="col-12 align-self-end">
-        {% include 'inc/footer.html' %}
-    </div>
-</div>
+</section>
+<!-- new products -->
 
+<!-- options -->
+{% include 'inc/options.html' %}
+<!-- footer -->
+{% include 'inc/footer.html' %}
 {% endblock content %}
