@@ -126,26 +126,10 @@ class ProductInventory(models.Model):
     Product inventory table
     """
 
-    sku = models.CharField(
-        max_length=20,
-        unique=True,
-        null=False,
-        blank=False,
-        verbose_name=_("stock keeping unit"),
-        help_text=_("format: required, unique, max-20"),
-    )
-    upc = models.CharField(
-        max_length=12,
-        unique=True,
-        null=False,
-        blank=False,
-        verbose_name=_("universal product code"),
-        help_text=_("format: required, unique, max-12"),
-    )
     product = models.ForeignKey(
         Product, related_name="product", on_delete=models.PROTECT
     )
-    brand = models.ForeignKey(Brand, related_name="brand", on_delete=models.PROTECT)
+    brand = models.ForeignKey(Brand, related_name="products", on_delete=models.PROTECT)
     is_active = models.BooleanField(
         default=True,
         verbose_name=_("product visibility"),
@@ -156,20 +140,6 @@ class ProductInventory(models.Model):
         verbose_name=_("default selection"),
         help_text=_("format: true=sub product selected"),
     )
-    retail_price = models.DecimalField(
-        max_digits=5,
-        decimal_places=2,
-        unique=False,
-        null=False,
-        blank=False,
-        verbose_name=_("recommended retail price"),
-        help_text=_("format: maximum price 999.99"),
-        error_messages={
-            "name": {
-                "max_length": _("the price must be between 0 and 999.99."),
-            },
-        },
-    )
     store_price = models.DecimalField(
         max_digits=5,
         decimal_places=2,
@@ -177,20 +147,6 @@ class ProductInventory(models.Model):
         null=False,
         blank=False,
         verbose_name=_("regular store price"),
-        help_text=_("format: maximum price 999.99"),
-        error_messages={
-            "name": {
-                "max_length": _("the price must be between 0 and 999.99."),
-            },
-        },
-    )
-    sale_price = models.DecimalField(
-        max_digits=5,
-        decimal_places=2,
-        unique=False,
-        null=False,
-        blank=False,
-        verbose_name=_("sale price"),
         help_text=_("format: maximum price 999.99"),
         error_messages={
             "name": {
@@ -272,15 +228,8 @@ class Media(models.Model):
 class Stock(models.Model):
     product_inventory = models.OneToOneField(
         ProductInventory,
-        related_name="product_inventory",
+        related_name="stock",
         on_delete=models.PROTECT,
-    )
-    last_checked = models.DateTimeField(
-        unique=False,
-        null=True,
-        blank=True,
-        verbose_name=_("inventory stock check date"),
-        help_text=_("format: Y-m-d H:M:S, null-true, blank-true"),
     )
     units = models.IntegerField(
         default=0,
