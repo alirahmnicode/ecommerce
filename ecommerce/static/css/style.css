@@ -64,6 +64,7 @@ input {
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 50px;
     padding: 5px;
+    background-color: white;
 }
 
 .head input {
@@ -692,6 +693,17 @@ footer li {
 
 footer .icon i {
     background: rgba(0, 0, 0, 0.2);
+}
+
+/* search-result */
+#search-result .result-item img {
+    width: 100px;
+}
+
+#search-result .result-item {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
 }
 
 /*----------footer--------*/

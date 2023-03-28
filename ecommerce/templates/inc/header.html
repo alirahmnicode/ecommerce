@@ -1,61 +1,86 @@
 {% load update_params %}
-<header>
-    <div class="container">
-        <div class="navbar">
-            <div class="category flex">
-                <img
-                    src="https://img.icons8.com/external-those-icons-fill-those-icons/24/000000/external-app-applications-windows-those-icons-fill-those-icons-5.png" />
-                <select>
-                    {% for category in categories|slice:":4" %}
-                    <option>
-                        <a class="nav-link"
-                            href="{% url 'inventory:filter' %}?{% update_params product__category=category.id %}"
-                            id="electronics">{{category}}</a>
-                    </option>
-                    {% endfor %}
-                    <option>
-                        <a class="nav-link" href="{% url 'inventory:filter' %}" id="electronics">بیشتر</a>
-                    </option>
-                </select>
-            </div>
+<section class="head" id="head">
+    <div class="container flex1">
+        <div class="logo">
+            <h2>Bonik</h2>
+        </div>
 
-            <nav>
-                <ul id="menuitem">
-                    <li><a href="{% url 'cart:cart' %}" class="header-item">
-                            <i class="fas fa-shopping-bag me-2"></i><span id="header-qty"
-                                class="me-3">{{request.session.cart.quantity}}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'inventory:filter' %}" class="header-item">
-                            <span>filter</span>
-                            <i class="bi bi-funnel"></i></a>
-                    </li>
-                    {% if request.user.is_authenticated %}
-                    <li>
-                        <a href="{% url 'user:profile' %}" class="header-item">
-                            <i class="bi bi-person-fill"></i></a>
-                    </li>
-                    <li>
-                        <a href="{% url 'user:logout' %}" class="header-item">
-                            <span>log out</span>
-                            <i class="bi bi-funnel"></i></a>
-                    </li>
-                    {% else %}
-                    <li>
-                        <a href="{% url 'user:login' %}" class="header-item">
-                            <span>sign in</span>
-                            <i class="bi bi-box-arrow-in-right"></i></a>
-                    </li>
-                    <li>
-                        <a href="{% url 'user:signup' %}" class="header-item">
-                            <span>sign up</span>
-                            <i class="bi bi-person-fill-add"></i></a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </nav>
-            <span class="fa fa-bars" onclick="menutoggle()"></span>
+        <div class="search flex bg-white">
+            <i class="fas fa-search"></i>
+            <form action="#">
+                <div class="form-group" style="position: relative;">
+                    <div class="input-group">
+                        <input id="search" type="search" class="form-control border-0" placeholder="Search..." required>
+                    </div>
+                    <div id="search-result" style="display: none;">
+                        <div class="close">
+                            <i class="bi bi-x-lg"></i>
+                        </div>
+                        <div class="result-items">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="account">
+            <div class="icon">
+                <a href="{% url 'cart:cart' %}">
+                    <i class="far fa-shopping-bag"></i>
+                    <span>{{request.session.cart.quantity}}</span>
+                </a>
+
+            </div>
         </div>
     </div>
-</header>
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <div class="category flex">
+                    <div class="flex">
+                        {% for category in categories|slice:":4" %}
+                        <a class="nav-link me-2 fw-light text-body-secondary"
+                            href="{% url 'inventory:filter' %}?{% update_params product__category=category.id %}"
+                            id="electronics">{{category}}</a>
+                        {% endfor %}
+                        <a class="nav-link fw-light text-body-secondary" href="{% url 'inventory:filter' %}"
+                            id="electronics">بیشتر</a>
+                    </div>
+                </div>
+
+                <nav>
+                    <ul id="menuitem">
+                        <li>
+                            <a href="{% url 'inventory:filter' %}" class="header-item">
+                                <span>filter</span>
+                                <i class="bi bi-funnel"></i></a>
+                        </li>
+                        {% if request.user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'user:profile' %}" class="header-item">
+                                <i class="bi bi-person-fill"></i></a>
+                        </li>
+                        <li>
+                            <a href="{% url 'user:logout' %}" class="header-item">
+                                <span>log out</span>
+                                <i class="bi bi-funnel"></i></a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a href="{% url 'user:login' %}" class="header-item">
+                                <span>sign in</span>
+                                <i class="bi bi-box-arrow-in-right"></i></a>
+                        </li>
+                        <li>
+                            <a href="{% url 'user:signup' %}" class="header-item">
+                                <span>sign up</span>
+                                <i class="bi bi-person-fill-add"></i></a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                <span class="fa fa-bars" onclick="menutoggle()"></span>
+            </div>
+        </div>
+    </header>
+</section>

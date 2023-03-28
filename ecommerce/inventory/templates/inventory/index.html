@@ -3,7 +3,6 @@
 {% load update_params %}
 
 {% block content %}
-{% include 'inc/head.html' %}
 {% include 'inc/header.html' %}
 <!-- brands -->
 <section class="home_product">
@@ -75,7 +74,9 @@
             <div class="item">
                 <div class="img">
                     <span>50% off</span>
-                    <img src="{% static 'images/image-1.jpg' %}" alt="">
+                    <a href="{% url 'inventory:detail' slug=product.product.slug%}" class="product-name">
+                        <img src="{% static 'images/image-1.jpg' %}" alt="">
+                    </a>
                 </div>
 
                 <div class="text">
@@ -116,7 +117,9 @@
             <div class="item">
                 <div class="img">
                     <span>50% off</span>
-                    <img src="{% static 'images/image-1.jpg' %}" alt="">
+                    <a href="{% url 'inventory:detail' slug=product.product.slug%}" class="product-name">
+                        <img src="{% static 'images/image-3.jpg' %}" alt="">
+                    </a>
                 </div>
 
                 <div class="text">
