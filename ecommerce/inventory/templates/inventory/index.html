@@ -15,8 +15,8 @@
                 <div class="text top">
                     <h5>{{data.brands.0}}</h5>
                     {% with data.brands.0.products.all.0 as product %}
-                    <h2><span>{{product}}</span></h2>
-                    <p>{{product.product.description|slice:":155"}}...</p>
+                    <h2><span>{{product.product.name|slice:":20"}}...</span></h2>
+                    <p>{{product.product.description|slice:":100"}}...</p>
                     <a href="{% url 'inventory:filter' %}?brand={{data.brands.0.id}}">خرید</a>
                     {% endwith %}
                 </div>
@@ -33,8 +33,8 @@
                     <div class="text">
                         <h5>{{data.brands.1}}</h5>
                         {% with data.brands.1.products.all.1 as product %}
-                        <h2><span>{{product}}</span></h2>
-                        <p>{{product.product.description|slice:":155"}}...</p>
+                        <h2><span>{{product.product.name|slice:":20"}}...</span></h2>
+                        <p>{{product.product.description|slice:":100"}}...</p>
                         <a href="{% url 'inventory:filter' %}?brand={{data.brands.1.id}}">خرید</a>
                         {% endwith %}
                     </div>
@@ -46,8 +46,8 @@
                     <div class="text">
                         <h5>{{data.brands.2}}</h5>
                         {% with data.brands.2.products.all.2 as product %}
-                        <h2><span>{{product}}</span></h2>
-                        <p>{{product.product.description|slice:":155"}}...</p>
+                        <h2><span>{{product.product.name|slice:":20"}}...</span></h2>
+                        <p>{{product.product.description|slice:":100"}}...</p>
                         <a href="{% url 'inventory:filter' %}?brand={{data.brands.2.id}}">خرید</a>
                         {% endwith %}
                     </div>
