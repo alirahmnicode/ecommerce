@@ -1,4 +1,8 @@
-from django.contrib.auth.forms import UserChangeForm, UserCreationForm
+from django.contrib.auth.forms import (
+    AuthenticationForm,
+    UserChangeForm,
+    UserCreationForm,
+)
 from django.forms import ModelForm
 
 from .models import CustomUser, Profile
@@ -32,3 +36,15 @@ class ProfileUpdateForm(BaseCustomUserForm, ModelForm):
     class Meta:
         model = Profile
         exclude = ("user",)
+
+
+class CustomAuthenticationForm(AuthenticationForm):
+    """
+    Add 'form-control' class to attrs for get
+    bootstrap style
+    """
+
+    def __init__(self, request, *args, **kwargs) -> None:
+        super().__init__(request, *args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs["class"] = "form-control"

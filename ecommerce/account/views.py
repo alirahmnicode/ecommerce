@@ -1,14 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import HttpResponse, redirect, render
-from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import UpdateView
 
-from .forms import CustomUserCreationForm, ProfileUpdateForm
-from .models import Profile
+from .forms import CustomAuthenticationForm, CustomUserCreationForm, ProfileUpdateForm
 
 
 def user_signup(request):
@@ -26,7 +22,7 @@ def user_signup(request):
 
 def user_login(request):
     if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
+        form = CustomAuthenticationForm(request, data=request.POST)
         if form.is_valid():
             cd = form.cleaned_data
             phone = cd.get("username")
@@ -41,7 +37,7 @@ def user_login(request):
 
         else:
             messages.error(request, "خطایی رخ داد مجددا تلاش کنید.")
-    form = AuthenticationForm()
+    form = CustomAuthenticationForm(request=None)
     return render(request, "account/login.html", {"form": form})
 
 
