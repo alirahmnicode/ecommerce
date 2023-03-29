@@ -175,7 +175,6 @@ header .navbar span {
     text-align: center;
     margin-left: 20px;
     color: black;
-    font-size: 25px;
     display: none;
 }
 
@@ -188,7 +187,6 @@ header .navbar span {
         background: aliceblue;
         overflow: hidden;
         transition: max-height 0.5s;
-        z-index: 100;
     }
 
     header nav ul li {
@@ -206,6 +204,7 @@ header .navbar span {
         color: black;
         display: block;
         cursor: pointer;
+        z-index: 1;
     }
 }
 
@@ -776,4 +775,16 @@ footer .icon i {
     }
 
     /*----------footer--------*/
+}
+
+/* resopnsive */
+
+@media only screen and (max-width:576px) {
+    form {
+        margin: 0 30px;
+    }
+
+    .container:first-child {
+        max-width: 100%;
+    }
 }

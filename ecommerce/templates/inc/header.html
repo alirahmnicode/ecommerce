@@ -1,8 +1,10 @@
 {% load update_params %}
 <section class="head" id="head">
-    <div class="container flex1">
+    <div class="container flex1 align-items-center">
         <div class="logo">
-            <h2>Bonik</h2>
+            <a href="/">
+                <h2>Bonik</h2>
+            </a>
         </div>
 
         <div class="search flex bg-white">
@@ -27,7 +29,9 @@
             <div class="icon">
                 <a href="{% url 'cart:cart' %}">
                     <i class="far fa-shopping-bag"></i>
+                    {% if request.session.cart.quantity > 0 %}
                     <span>{{request.session.cart.quantity}}</span>
+                    {% endif %}
                 </a>
 
             </div>
@@ -47,32 +51,31 @@
                             id="electronics">بیشتر</a>
                     </div>
                 </div>
-
                 <nav>
                     <ul id="menuitem">
                         <li>
-                            <a href="{% url 'inventory:filter' %}" class="header-item">
+                            <a href="{% url 'inventory:filter' %}" class="header-item d-flex justify-content-end">
                                 <span>filter</span>
                                 <i class="bi bi-funnel"></i></a>
                         </li>
                         {% if request.user.is_authenticated %}
                         <li>
-                            <a href="{% url 'user:profile' %}" class="header-item">
+                            <a href="{% url 'user:profile' %}" class="header-item d-flex justify-content-end">
                                 <i class="bi bi-person-fill"></i></a>
                         </li>
                         <li>
-                            <a href="{% url 'user:logout' %}" class="header-item">
+                            <a href="{% url 'user:logout' %}" class="header-item d-flex justify-content-end">
                                 <span>log out</span>
                                 <i class="bi bi-funnel"></i></a>
                         </li>
                         {% else %}
                         <li>
-                            <a href="{% url 'user:login' %}" class="header-item">
+                            <a href="{% url 'user:login' %}" class="header-item d-flex justify-content-end">
                                 <span>sign in</span>
                                 <i class="bi bi-box-arrow-in-right"></i></a>
                         </li>
                         <li>
-                            <a href="{% url 'user:signup' %}" class="header-item">
+                            <a href="{% url 'user:signup' %}" class="header-item d-flex justify-content-end">
                                 <span>sign up</span>
                                 <i class="bi bi-person-fill-add"></i></a>
                         </li>
