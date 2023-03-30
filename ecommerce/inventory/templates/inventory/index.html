@@ -17,7 +17,7 @@
                     {% with data.brands.0.products.all.0 as product %}
                     <h2><span>{{product.product.name|slice:":20"}}...</span></h2>
                     <p>{{product.product.description|slice:":100"}}...</p>
-                    <a href="{% url 'inventory:filter' %}?brand={{data.brands.0.id}}">خرید</a>
+                    <a class="fs-4" href="{% url 'inventory:filter' %}?brand={{data.brands.0.id}}">خرید</a>
                     {% endwith %}
                 </div>
             </div>
@@ -35,7 +35,7 @@
                         {% with data.brands.1.products.all.1 as product %}
                         <h2><span>{{product.product.name|slice:":20"}}...</span></h2>
                         <p>{{product.product.description|slice:":100"}}...</p>
-                        <a href="{% url 'inventory:filter' %}?brand={{data.brands.1.id}}">خرید</a>
+                        <a class="fs-4" href="{% url 'inventory:filter' %}?brand={{data.brands.1.id}}">خرید</a>
                         {% endwith %}
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                         {% with data.brands.2.products.all.2 as product %}
                         <h2><span>{{product.product.name|slice:":20"}}...</span></h2>
                         <p>{{product.product.description|slice:":100"}}...</p>
-                        <a href="{% url 'inventory:filter' %}?brand={{data.brands.2.id}}">خرید</a>
+                        <a class="fs-4" href="{% url 'inventory:filter' %}?brand={{data.brands.2.id}}">خرید</a>
                         {% endwith %}
                     </div>
                 </div>
@@ -66,7 +66,7 @@
 <section class="flash Deals">
     <div class="container mtop">
         <div class="heading flex1">
-            <a href="#">مشاهده همه <i class="fas fa-caret-right"></i></a>
+            <a href="#" class="fs-6">مشاهده همه <i class="fas fa-caret-right"></i></a>
             <h2><i class="fas fa-bolt"></i> جدید ترین ها</h2>
         </div>
         <div class="owl-carousel owl-theme">
@@ -80,15 +80,6 @@
                 </div>
 
                 <div class="text">
-                    <h5><a href="{% url 'inventory:detail' slug=product.product.slug%}"
-                            class="product-name">{{product.product.name}}</a></h5>
-                    <div class="star flex">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                    </div>
                     <div class="price flex1">
                         <p>{{product.sale_price}}<label> $250.00</label></p>
                     </div>
@@ -109,7 +100,7 @@
 <section class="flash Deals">
     <div class="container mtop">
         <div class="heading flex1">
-            <a href="#">مشاهده همه <i class="fas fa-caret-right"></i></a>
+            <a class="fs-6" href="#">مشاهده همه <i class="fas fa-caret-right"></i></a>
             <h2><i class="fas fa-bolt"></i>پرفروش ترین ها</h2>
         </div>
         <div class="owl-carousel owl-theme">
@@ -123,15 +114,6 @@
                 </div>
 
                 <div class="text">
-                    <h5><a href="{% url 'inventory:detail' slug=product.product.slug%}"
-                            class="product-name">{{product.product.name}}</a></h5>
-                    <div class="star flex">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                    </div>
                     <div class="price flex1">
                         <p>{{product.sale_price}}<label> $250.00</label></p>
                     </div>
