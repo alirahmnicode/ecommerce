@@ -13,7 +13,7 @@
     <!-- content -->
     <div class="col-12">
         <!-- profile form -->
-        <form action="{% url 'user:profile_update' %}" method="POST">
+        <form clss="user-form" action="{% url 'user:profile_update' %}" method="POST">
             {% csrf_token %}
             {% for field in profile_form %}
             <div class="mb-3">

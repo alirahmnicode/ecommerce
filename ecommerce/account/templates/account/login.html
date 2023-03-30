@@ -8,7 +8,6 @@
 {% block content %}
 {% include 'inc/header.html' %}
 <div class="row min-vh-100">
-
     <div class="col-12">
         <!-- Main Content -->
         <div class="row">
@@ -20,7 +19,7 @@
             <div class="col-lg-4 col-md-6 col-sm-8 mx-auto bg-white py-3 mb-4">
                 <div class="row">
                     <div class="col-12">
-                        <form method="post">
+                        <form class="user-form" method="post">
                             {% csrf_token %}
                             {% for field in form %}
                             <div class="mb-3">

@@ -780,7 +780,7 @@ footer .icon i {
 /* resopnsive */
 
 @media only screen and (max-width:576px) {
-    form {
+    .user-form {
         margin: 0 30px;
     }
 
@@ -789,8 +789,17 @@ footer .icon i {
     }
 }
 
-@media only screen and (max-width:510px) {
+@media only screen and (max-width:530px) {
     .text button {
         font-size: 10px;
+    }
+
+    #search-result {
+        display: block;
+        position: absolute;
+        width: 100%;
+        background: #fff;
+        left: 0;
+        z-index: 1000;
     }
 }

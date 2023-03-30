@@ -1,28 +1,32 @@
 {% load update_params %}
 <section class="head" id="head">
-    <div class="container flex1 align-items-center">
+    <div class="container flex1 align-items-start">
         <div class="logo">
             <a href="/">
                 <h2>Bonik</h2>
             </a>
         </div>
 
-        <div class="search flex bg-white">
-            <i class="fas fa-search"></i>
-            <form action="#">
+        <div class="search bg-white">
+            <div class="flex">
+                <i class="fas fa-search"></i>
                 <div class="form-group" style="position: relative;">
-                    <div class="input-group">
-                        <input id="search" type="search" class="form-control border-0" placeholder="Search..." required>
-                    </div>
-                    <div id="search-result" style="display: none;">
-                        <div class="close">
-                            <i class="bi bi-x-lg"></i>
+                    <form action="#">
+                        <div class="input-group">
+                            <input id="search" type="search" class="form-control border-0" placeholder="Search..."
+                                required>
                         </div>
-                        <div class="result-items">
-                        </div>
-                    </div>
+                    </form>
                 </div>
-            </form>
+            </div>
+            <div id="search-result" style="display: none;">
+                <div class="close">
+                    <i class="bi bi-x-lg"></i>
+                </div>
+                <div class="result-items">
+                </div>
+            </div>
+
         </div>
 
         <div class="account">
