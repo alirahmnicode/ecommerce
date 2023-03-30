@@ -22,4 +22,4 @@ def product_quantity(request, product_id, action):
 def remove(request, product_id):
     cart = Cart(request)
     cart.remove(product_id)
-    return JsonResponse({"delete": True})
+    return JsonResponse({"delete": True, "cart": request.session.get("cart")})

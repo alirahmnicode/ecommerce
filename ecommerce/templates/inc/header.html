@@ -33,9 +33,7 @@
             <div class="icon">
                 <a href="{% url 'cart:cart' %}">
                     <i class="far fa-shopping-bag"></i>
-                    {% if request.session.cart.quantity > 0 %}
-                    <span>{{request.session.cart.quantity}}</span>
-                    {% endif %}
+                    <span id="header-qty">{{request.session.cart.quantity}}</span>
                 </a>
 
             </div>

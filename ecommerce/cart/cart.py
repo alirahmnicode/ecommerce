@@ -50,6 +50,7 @@ class Cart:
         product_id = str(product_id)
         del self.products[product_id]
         self.set_total_quantity()
+        self.get_total_price()
         self.save()
 
     def set_item_price(self, product, product_id):
