@@ -447,11 +447,11 @@ h3 {
 }
 
 .owl-prev i {
-    left: -20px;
+    left: -10px;
 }
 
 .owl-next i {
-    right: -20px;
+    right: -10px;
     background: #000;
 }
 
@@ -801,5 +801,21 @@ footer .icon i {
         background: #fff;
         left: 0;
         z-index: 1000;
+    }
+}
+
+/* product detail */
+.product-detail>.product {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.product-detail .product-image img {
+    width: 700px;
+}
+
+@media only screen and (max-width:700px) {
+    .product-detail .product-image img {
+        width: 100%;
     }
 }
