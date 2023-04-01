@@ -23,30 +23,6 @@
                                 style="background-image: url('http://localhost:8000/static/images/image-1.jpg')">
                             </div>
                         </div>
-                        <div class="col-12">
-                            <div class="row">
-                                <div class="col-sm-2 col-3">
-                                    <div class="img-small border"
-                                        style="background-image: url('http://localhost:8000/static/images/image-1.jpg')"
-                                        data-src="images/image-1.jpg"></div>
-                                </div>
-                                <div class="col-sm-2 col-3">
-                                    <div class="img-small border"
-                                        style="background-image: url('http://localhost:8000/static/images/image-2.jpg')"
-                                        data-src="images/image-2.jpg"></div>
-                                </div>
-                                <div class="col-sm-2 col-3">
-                                    <div class="img-small border"
-                                        style="background-image: url('http://localhost:8000/static/images/image-3.jpg')"
-                                        data-src="images/image-3.jpg"></div>
-                                </div>
-                                <div class="col-sm-2 col-3">
-                                    <div class="img-small border"
-                                        style="background-image: url('http://localhost:8000/static/images/image-4.jpg')"
-                                        data-src="images/image-4.jpg"></div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <!-- Product Images -->
 
@@ -54,7 +30,6 @@
                     <div class="col-lg-5 col-md-9">
                         <div class="col-12 product-name large">
                             {{product.product__name}}
-                            <small>By <a href="#">{{product.brand}}</a></small>
                         </div>
                         <div class="col-12 px-0">
                             <hr>
@@ -70,13 +45,38 @@
                         <div class="col-12 sidebar h-100">
                             <div class="row">
                                 <div class="col-12">
-                                    <span class="detail-price">
-                                        {{product.store_price}}
-                                    </span>
-                                    <span class="detail-price-old">
-                                        $2,800
-                                    </span>
+                                    <div class="detail-price">
+                                        <span>{{product.store_price}}</span>
+                                        <span> : قیمت </span>
+                                    </div>
                                 </div>
+                                <div class="col-12">
+                                    <div class="category-price">
+                                        <a
+                                            href="{% url 'inventory:filter' %}?product__category={{product.product__category__id}}"><span>{{product.product__category__name}}</span>
+                                        </a>
+                                        <span> : دسته بندی </span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="category-price">
+                                        <a
+                                            href="{% url 'inventory:filter' %}?brand={{product.brand__id}}">{{product.brand__name}}</a>
+                                        <span> : محصول</span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="stock-price">
+                                        {% if product.stock__units_sold > 0 %}
+                                        <span> تا کنون فروخته شده<span>{{product.stock__units_sold}}</span></span>
+                                        {% endif %}
+
+                                        {% if product.stock__units < 4 %} <span> فقط عدد در انبار باقی
+                                            مانده<span>{{product.stock__units_sold}}</span></span>
+                                            {% endif %}
+                                    </div>
+                                </div>
+
                                 <div class="col-12 mt-3">
                                     <button data-product_id="{{product.id}}" class="add-to-cart btn btn-outline-dark"
                                         type="button"><i class="fas fa-cart-plus me-2"></i>Add to cart</button>

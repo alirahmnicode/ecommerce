@@ -29,14 +29,19 @@ def product_detail(request, slug):
         .filter(is_default=True)
         .values(
             "id",
-            "sku",
             "product__name",
             "product__description",
             "store_price",
-            "product_inventory__units",
-            "brand",
+            "brand__name",
+            "brand__id",
+            "product__category__name",
+            "product__category__id",
+            "stock__units",
+            "stock__units_sold",
         )
+        .get()
     )
+    print(product)
     context = {"product": product}
     return render(request, "inventory/product_detail.html", context)
 
