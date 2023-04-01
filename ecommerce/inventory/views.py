@@ -41,8 +41,12 @@ def product_detail(request, slug):
         )
         .get()
     )
-    print(product)
-    context = {"product": product}
+    # get 20 similar products by category
+    similar_products = models.ProductInventory.objects.filter(
+        product__category__id=product["product__category__id"]
+    )[:20]
+    print(similar_products)
+    context = {"product": product, "similar_products": similar_products}
     return render(request, "inventory/product_detail.html", context)
 
 
