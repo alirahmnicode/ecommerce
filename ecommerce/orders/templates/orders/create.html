@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<!-- Main Content Wrapper Start -->
+<div class="main-content-wrapper">
+    {% include 'inc/header.html' %}
+    <div class="page-content-inner pb-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <!-- Checkout Area Start -->
+                <div class="col-lg-6">
+                    <div class="checkout-title mt--10">
+                        <h2>جزئیات سفارش</h2>
+                    </div>
+                    <div class="checkout-form">
+                        <form method="POST" class="form form--checkout">
+                            {% csrf_token %}
+                            {% if form.errors %}
+                            <div class="alert alert-danger">
+                                {{ form.errors }}
+                            </div>
+                            {% endif %}
+
+                            {% with request.user.profile as profile %}
+                            <div class="form-row mb--20">
+                                <div class="form__group col-md-6 mb-sm--30">
+                                    <label for="billing_fname" class="form__label form__label--2">نام <span
+                                            class="required">*</span></label>
+                                    <input type="text" name="{{ form.first_name.name }}" id="billing_fname"
+                                        class="form__input form__input--2 form-control" value="{{profile.name}}">
+                                </div>
+                                <div class="form__group col-md-6">
+                                    <label for="billing_lname" class="form__label form__label--2">نام خانوادگی <span
+                                            class="required">*</span></label>
+                                    <input type="text" name="{{ form.last_name.name }}" id="billing_lname"
+                                        class="form__input form__input--2 form-control" value="{{profile.last_name}}">
+                                </div>
+                            </div>
+                            <div class="form-row mb--20">
+                                <div class="form__group col-12">
+                                    <label for="billing_address" class="form__label form__label--2">آدرس</label>
+                                    <input type="text" name="{{ form.address.name }}" id="billing_address"
+                                        class="form__input form__input--2 form-control" value="{{profile.address}}">
+                                </div>
+                            </div>
+                            <div class="form-row mb--20">
+                                <div class="form__group col-12">
+                                    <label for="billing_phone" class="form__label form__label--2">شماره همراه <span
+                                            class="required">*</span></label>
+                                    <input type="text" name="{{ form.phone_number.name }}" id="billing_phone"
+                                        class="form__input form__input--2 form-control" value="{{profile.user.phone}}">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form__group col-12">
+                                    <label for="orderNotes" class="form__label form__label--2">یادداشت شما</label>
+                                    <textarea class="form__input form__input--2 form__input--textarea form-control"
+                                        id="orderNotes" name="{{ form.order_notes.name }}"
+                                        placeholder="اگر یادداشتی دارید در اینجا وارد کنید. در غیر این صورت این مکان را خالی بگذارید"></textarea>
+                                </div>
+                            </div>
+                            {% endwith %}
+                            <button class="btn" type="submit">submit</button>
+                        </form>
+
+                    </div>
+                </div>
+                <div class="col-xl-5 offset-xl-1 col-lg-6 mt-md--40">
+                    <div class="order-details">
+                        <div class="checkout-title mt--10">
+                            <h2>سفارش شما</h2>
+                        </div>
+                        <div class="table-content table-responsive mb--30">
+                            <table class="table order-table order-table-2">
+                                <thead>
+                                    <tr>
+                                        <th>محصول</th>
+                                        <th class="text-right">قیمت نهایی</th>
+                                    </tr>
+                                </thead>
+
+                                {% with request.session.cart as cart %}
+                                <tbody>
+                                    {% for i, item in cart.products.items %}
+                                    {% with item.product as product %}
+                                    <tr>
+                                        <th>{{ product.product__name }}
+                                            <strong><span>&#10005;</span> {{product.quantity}}</strong>
+                                        </th>
+                                        <td class="text-right">{{product.store_price}}</td>
+                                    </tr>
+                                    {% endwith %}
+                                    {% endfor %}
+
+                                </tbody>
+                                <tfoot>
+                                    <tr class="cart-subtotal">
+                                        <th>مجموع</th>
+                                        <td class="text-right">{{cart.total_price}} </td>
+                                    </tr>
+                                </tfoot>
+                                {% endwith %}
+                            </table>
+                        </div>
+                        <div class="checkout-payment">
+                            <h2 class="py-5">روش پرداخت</h2>
+                            <form action="#" class="payment-form">
+                                <div class="payment-group mb--10">
+                                    <div class="payment-radio">
+                                        <input type="radio" value="bank" name="payment-method" id="bank" checked>
+                                        <label class="payment-label" for="cheque">درگاه آنلاین زرین پال</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- Checkout Area End -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content Wrapper Start -->
+{% endblock %}
