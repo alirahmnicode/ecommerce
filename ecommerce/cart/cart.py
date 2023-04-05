@@ -1,85 +1,62 @@
-from django.db.models import Count
 from ecommerce.inventory.models import ProductInventory
 
 
 class Cart:
     def __init__(self, request) -> None:
+        self.request = request
         self.session = request.session
+
         cart = self.session.get("cart")
         if not cart:
             cart = self.session["cart"] = {}
         self.cart = cart
 
-        products = self.cart.get("products")
-        if not products:
-            products = self.cart["products"] = {}
-        self.products = products
+    def __iter__(self):
+        product_ids = self.cart.keys()
+        products = ProductInventory.objects.filter(id__in=product_ids)
 
-    def add(self, product_id):
-        product_id = str(product_id)
-        if product_id in self.products.keys():
-            # update quantity and item price
-            product = self.products[product_id]["product"]
-            product["quantity"] += 1
-            self.set_item_price(product, product_id)
-        else:
-            # add new item to cart
-            product = self.get_product(product_id)
-            self.products[product_id] = {
-                "product": product,
-                "item_price": product["store_price"],
-            }
-        # update total price
-        self.get_total_price()
-        self.set_total_quantity()
+        cart = self.cart.copy()
+
+        for product in products:
+            cart[str(product.id)]["product_obj"] = product
+
+        for item in cart.values():
+            item["total_price"] = item["product_obj"].store_price * item["quantity"]
+            yield item
+
+    def __len__(self):
+        return sum(item["quantity"] for item in self.cart.values())
+
+    def add(self, product, quantity=1):
+        product_id = str(product.id)
+
+        if product_id not in self.cart:
+            self.cart[product_id] = {"quantity": 0}
+
+        self.cart[product_id]["quantity"] += quantity
+
         self.save()
 
-    def reduce(self, product_id):
-        product_id = str(product_id)
-        product = self.products[product_id]["product"]
-        product["quantity"] -= 1
-        if product["quantity"] == 0:
-            self.remove(product_id)
-        else:
-            self.set_item_price(product, product_id)
-        self.get_total_price()
-        self.set_total_quantity()
-        self.save()
+    def remove(self, product):
+        product_id = str(product.id)
+        if product_id in self.cart:
+            del self.cart[product_id]
+            self.save()
 
-    def remove(self, product_id):
-        product_id = str(product_id)
-        del self.products[product_id]
-        self.set_total_quantity()
-        self.get_total_price()
+    def clear(self):
+        del self.session["cart"]
         self.save()
-
-    def set_item_price(self, product, product_id):
-        item_price = product["store_price"] * product["quantity"]
-        self.products[product_id]["item_price"] = item_price
 
     def get_total_price(self):
-        total_price = 0
-        total_price = sum(
-            [
-                p["product"]["quantity"] * p["product"]["store_price"]
-                for p in self.products.values()
-            ]
+        return sum(
+            item["quantity"] * item["product_obj"].store_price
+            for item in self.cart.values()
         )
-        self.cart["total_price"] = total_price
-
-    def get_product(self, product_id):
-        product = (
-            ProductInventory.objects.filter(id=product_id)
-            .values("product__name", "store_price")
-            .annotate(quantity=Count(1))
-        )[0]
-        product_price = product["store_price"]
-        product["store_price"] = float(product_price)
-        return product
-
-    def set_total_quantity(self):
-        self.cart["quantity"] = len(self.products.keys())
-        self.save()
 
     def save(self):
         self.session.modified = True
+
+    def is_empty(self):
+        if self.cart:
+            return False
+        return True
