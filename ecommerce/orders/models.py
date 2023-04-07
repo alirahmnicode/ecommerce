@@ -4,7 +4,9 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Order(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="order"
+    )
     is_paid = models.BooleanField(default=False)
 
     first_name = models.CharField(_("First Name:"), max_length=225)
@@ -15,6 +17,9 @@ class Order(models.Model):
 
     datetime_created = models.DateTimeField(_("Created"), auto_now_add=True)
     datetime_modified = models.DateTimeField(_("Modified"), auto_now=True)
+
+    def get_total_price(self):
+        return sum(item.quantity * item.price for item in self.items.all())
 
     def __str__(self) -> str:
         return f"Order {self.id}"
