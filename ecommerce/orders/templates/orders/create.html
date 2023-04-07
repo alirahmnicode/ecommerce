@@ -61,7 +61,7 @@
                                 </div>
                             </div>
                             {% endwith %}
-                            <button class="btn" type="submit">submit</button>
+                            <button class="btn" type="submit">تایید و پرداخت</button>
                         </form>
 
                     </div>
@@ -80,13 +80,12 @@
                                     </tr>
                                 </thead>
 
-                                {% with request.session.cart as cart %}
                                 <tbody>
-                                    {% for i, item in cart.products.items %}
-                                    {% with item.product as product %}
+                                    {% for item in cart %}
+                                    {% with item.product_obj as product %}
                                     <tr>
-                                        <th>{{ product.product__name }}
-                                            <strong><span>&#10005;</span> {{product.quantity}}</strong>
+                                        <th>{{ product.product.name }}
+                                            <strong><span>&#10005;</span> {{item.quantity}}</strong>
                                         </th>
                                         <td class="text-right">{{product.store_price}}</td>
                                     </tr>
@@ -97,10 +96,9 @@
                                 <tfoot>
                                     <tr class="cart-subtotal">
                                         <th>مجموع</th>
-                                        <td class="text-right">{{cart.total_price}} </td>
+                                        <td class="text-right">{{cart.get_total_price}} </td>
                                     </tr>
                                 </tfoot>
-                                {% endwith %}
                             </table>
                         </div>
                         <div class="checkout-payment">
