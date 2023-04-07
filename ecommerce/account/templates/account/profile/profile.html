@@ -6,30 +6,93 @@
 
 
 {% block content %}
-<div class="row min-vh-100">
+
+<div class="row min-vh-100 g-0">
     <div class="col-12">
         {% include 'inc/header.html' %}
     </div>
-    <!-- content -->
-    <div class="col-12">
-        <!-- profile form -->
-        <form clss="user-form" action="{% url 'user:profile_update' %}" method="POST">
-            {% csrf_token %}
-            {% for field in profile_form %}
-            <div class="mb-3">
-                <label for="name" class="form-label">{{ field.label_tag }}</label>
-                {{ field }}
-                {{ field.errors }}
+    <div class="mt-5 row flex-wrap profile-detail pe-0">
+        <div class="col-6">
+            <div>
+                <div class="h5 mb-3" dir="rtl"> جزِئیات سفارش ها</div>
+                {% with request.user.order.all as orders %}
+                {% if orders.count == 0 %}
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <div>شما تاکنون سفارشی نداشته اید.</div>
+                </div>
+                {% else %}
+                <div class="orders">
+                    {% for order in orders %}
+                    <div class="order mt-2">
+                        <div class="card" style="background-color: #e0e0e0;">
+                            <div class="card-body pb-0">
+                                <div class="d-flex justify-content-between">
+                                    {% if order.is_paid %}
+                                    <p class="mb-0 h5 btn btn-outline-success">پرداخت شده</p>
+                                    {% else %}
+                                    <p class="mb-0 h5 btn btn-outline-danger">پرداخت نشده</p>
+                                    {% endif %}
+                                    <p class="mb-0 hour">{{order.datetime_created | timesince}}</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="card-body pt-0">
+                                {% with order.items.all as items %}
+                                <div class="items">
+                                    {% for item in items %}
+                                    <div class="item">
+                                        <p class="">{{item.product.product.name}} x {{item.quantity}}</p>
+                                    </div>
+                                    {% endfor %}
+                                    {% endwith %}
+                                </div>
+                                <h6 class="font-weight-bold mb-1">قیمت کل: {{order.get_total_price}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% endwith %}
             </div>
-            {% endfor %}
-            <div class="form-group">
-                <button type="submit" class="btn btn-outline-dark">ویرایش</button>
-            </div>
-        </form>
+        </div>
+        <div class="col-6 bg-white text-dark rounded">
+            <form clss="user-form" action="{% url 'user:profile_update' %}" method="POST">
+                {% csrf_token %}
+                {% for field in profile_form %}
+                <div class="mb-3">
+                    <label for="name" class="form-label">{{ field.label_tag }}</label>
+                    {{ field }}
+                    {{ field.errors }}
+                </div>
+                {% endfor %}
+                <div class="form-group mb-2">
+                    <button type="submit" class="btn btn-outline-dark">ویرایش</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <!--  -->
     <div class="col-12 align-self-end">
         {% include 'inc/footer.html' %}
     </div>
 </div>
 {% endblock content %}
+
+
+{% block script %}
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        grabCursor: true,
+        effect: "creative",
+        creativeEffect: {
+            prev: {
+                shadow: true,
+                translate: [0, 0, -400],
+            },
+            next: {
+                translate: ["100%", 0, 0],
+            },
+        },
+    });
+</script>
+{% endblock script %}
