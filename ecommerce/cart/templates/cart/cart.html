@@ -5,7 +5,7 @@
 {% endblock title %}
 
 {% block content %}
-<div class="row min-vh-100">
+<div class="row min-vh-100 g-0">
     <!-- header -->
     <div class="col-12">
         {% include 'inc/header.html' %}
@@ -19,51 +19,51 @@
             </div>
         </div>
 
-        <main class="row">
+        <main class="row ">
             <div class="col-12 bg-white py-3 mb-3">
 
                 <div class="row">
-                    {% if cart.quantity > 0 %}
+                    {% if cart %}
                     <div class="col-lg-6 col-md-8 col-sm-10 mx-auto table-responsive">
                         <form class="row">
                             <div class="col-12">
                                 <table class="table table-striped table-hover table-sm">
                                     <thead>
                                         <tr>
-                                            <th>Product</th>
-                                            <th>Price</th>
-                                            <th>Qty</th>
-                                            <th>Amount</th>
+                                            <th>محصول</th>
+                                            <th>قیمت</th>
+                                            <th>تعداد</th>
+                                            <th>قیمت کل</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for i, item in cart.products.items %}
-                                        {% with item.product as product %}
-                                        <tr id="product-{{i}}">
+                                        {% for item in cart %}
+                                        {% with item.product_obj as product %}
+                                        <tr id="product-{{product.id}}">
                                             <td>
                                                 <img src="images/image-2.jpg" class="img-fluid">
-                                                {{product.product__name}}
+                                                {{product.product.name}}
                                             </td>
                                             <td>
                                                 {{product.store_price}}
                                             </td>
                                             <td>
                                                 <div>
-                                                    <div data-product_id="{{i}}" onclick="changeQuanity(1, this)"><i
-                                                            class="bi bi-plus"></i>
+                                                    <div data-product_id="{{product.id}}"
+                                                        onclick="changeQuanity(1, this)"><i class="bi bi-plus"></i>
                                                     </div>
-                                                    <div id="quantity-{{i}}">{{product.quantity}}</div>
-                                                    <div class="minus" data-product_id="{{i}}"
+                                                    <div id="quantity-{{product.id}}">{{item.quantity}}</div>
+                                                    <div class="minus" data-product_id="{{product.id}}"
                                                         onclick="changeQuanity(-1, this)"><i class="bi bi-dash"></i>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td id="item-price-{{i}}">
-                                                {{item.item_price}}
+                                            <td id="item-price-{{product.id}}">
+                                                {{item.total_price}}
                                             </td>
                                             <td>
-                                                <div data-product_id="{{i}}" class="btn text-danger"
+                                                <div data-product_id="{{product.id}}" class="btn text-danger"
                                                     onclick="remove(this)"><i class="fas fa-times"></i></div>
                                             </td>
                                         </tr>
@@ -80,7 +80,7 @@
                                 </table>
                             </div>
                             <div class="col-12 text-right">
-                                <a href="#" class="btn btn-outline-success">Checkout</a>
+                                <a href="{% url 'orders:create' %}" class="btn btn-outline-success">ثبت سفارش</a>
                             </div>
                         </form>
                     </div>
@@ -90,10 +90,7 @@
                     </div>
                     {% endif %}
                 </div>
-
-
             </div>
-
         </main>
         <!-- Main Content -->
     </div>
@@ -111,28 +108,28 @@
     function changeQuanity(n, thisElement) {
         product_id = thisElement.dataset.product_id
 
-        let act = ''
         if (n == 1) {
-            act = 'add'
             $('.minus').css('display', 'block')
         } else {
-            act = 'reduce'
             if (thisElement.previousElementSibling.textContent == '1') {
                 $(thisElement).css('display', 'none')
                 $(`#item-price-${product_id}`).text('0')
                 $(`#quantity-${product_id}`).text('0')
             }
         }
+
         $.ajax({
-            url: `${url}quantity/${product_id}/${act}/`,
+            url: `${url}add/${product_id}/${n}/`,
             type: 'GET',
             success: function (data) {
+                console.log(data)
                 updateCart(data.cart)
             }
         })
     }
 
     function updateCart(cart) {
+        console.log(cart)
         let products = cart.products
         for (const property in products) {
             $(`#item-price-${property}`).text(products[property].item_price)
