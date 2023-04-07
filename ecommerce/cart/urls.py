@@ -5,11 +5,12 @@ from . import views
 app_name = "cart"
 
 urlpatterns = [
-    path("", views.cart, name="cart"),
+    path("", views.cart_detail_view, name="cart_detail"),
     path(
-        "quantity/<int:product_id>/<str:action>/",
-        views.product_quantity,
-        name="quantity",
+        "add/<int:product_id>/<int:quantity>/",
+        views.add_to_cart_view,
+        name="add",
     ),
     path("remove/<int:product_id>/", views.remove, name="remove"),
+    path("clear/", views.clear_cart, name="clear"),
 ]
