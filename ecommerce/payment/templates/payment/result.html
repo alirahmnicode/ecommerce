@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'inc/header.html' %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-sm-6">
+
+            {% if data.success == 1 %}
+            <div class="alert alert-success alert-dismissible" role="alert">پرداخت با موفقیت انجام شد</div>
+            <div>
+                <div>{{data.track_id}}</div>
+            </div>
+            {% else %}
+            <div>پرداخت انجام نشده است</div>
+            {{data.message}}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script src="https://zibal.ir/trust/scripts/1.js" type="text/javascript"></script>
+{% endblock content %}
