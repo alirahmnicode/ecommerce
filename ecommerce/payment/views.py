@@ -1,3 +1,85 @@
-from django.shortcuts import render
+import json
 
-# Create your views here.
+import requests
+from django.shortcuts import get_object_or_404, redirect, render
+from ecommerce.orders.models import Order
+
+from .constant import CALLBACK_URL, CREATE_PAYMENT, PAYMENT_URL, VEIYFY_URL
+
+
+def payment_process(request):
+    order_id = request.session.get("order_id")
+    order = get_object_or_404(Order, id=order_id)
+    user = request.user
+
+    # urls
+    base_url = CREATE_PAYMENT
+    payment_url = PAYMENT_URL
+
+    # request data
+    requets_headers = {"Content-Type": "application/json"}
+    request_data = {
+        "merchant": "zibal",
+        "amount": 100000,
+        "callbackUrl": CALLBACK_URL,
+        "orderId": order_id,
+        "mobile": user.phone,
+    }
+
+    # create payment
+    res = requests.post(
+        url=base_url, data=json.dumps(request_data), headers=requets_headers
+    ).json()
+
+    result = res["result"]
+    message = res["message"]
+
+    # redirect to payment page and start payment
+    if result == 100 or message == "success":
+        return redirect(payment_url.format(trackId=res["trackId"]))
+    else:
+        return redirect("/")
+
+
+def check_reault_payment(request):
+    success = request.GET.get("success")
+    track_id = request.GET.get("trackId")
+    order_id = request.GET.get("orderId")
+    status = request.GET.get("status")
+
+    order = get_object_or_404(Order, id=order_id)
+
+    print("type:", type(success))
+    if success == "1":
+        # verify payment
+        verify_url = VEIYFY_URL
+
+        requets_headers = {"Content-Type": "application/json"}
+        request_data = {
+            "merchant": "zibal",
+            "trackId": track_id,
+        }
+
+        res = requests.post(
+            url=verify_url, headers=requets_headers, data=request_data
+        ).json()
+
+        payment_status = res["status"]
+        message = res["message"]
+
+        print("res:", res)
+
+        if payment_status == "1":
+            # set order paid to true
+            order_obj = order
+            order_obj.is_paid = True
+            order_obj.save()
+
+        data = {
+            "success": success,
+            "track_id": track_id,
+            "order": order,
+            "message": message,
+        }
+
+        return render(request, "payment/result.html", {"data": data})
