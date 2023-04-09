@@ -819,3 +819,15 @@ footer .icon i {
         width: 100%;
     }
 }
+
+@media only screen and (max-width:650px) {
+    .profile-detail {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .profile-detail>div {
+        width: 100%;
+        padding-right: 0;
+    }
+}
