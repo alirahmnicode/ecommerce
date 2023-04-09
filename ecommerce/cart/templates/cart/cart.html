@@ -45,7 +45,7 @@
                                                 <img src="images/image-2.jpg" class="img-fluid">
                                                 {{product.product.name}}
                                             </td>
-                                            <td>
+                                            <td id="product-price-{{product.id}}">
                                                 {{product.store_price}}
                                             </td>
                                             <td>
@@ -73,7 +73,7 @@
                                     <tfoot>
                                         <tr>
                                             <th colspan="3" class="text-right">Total</th>
-                                            <th id="total-price">{{cart.total_price}}</th>
+                                            <th id="total-price">{{cart.get_total_price}}</th>
                                             <th></th>
                                         </tr>
                                     </tfoot>
@@ -106,50 +106,92 @@
 <script>
     var url = window.location.href
     function changeQuanity(n, thisElement) {
-        product_id = thisElement.dataset.product_id
+        const productId = thisElement.dataset.product_id
 
         if (n == 1) {
+            var changeQuanityUrl = `${url}add/${productId}/${n}`
+
+            // increase price
+            setNewPrice(productId, "add")
+
+            // increase quantity
+            setQuantity(productId, "add")
+
+            // show - if it is hide
             $('.minus').css('display', 'block')
+
         } else {
-            if (thisElement.previousElementSibling.textContent == '1') {
+            var changeQuanityUrl = `${url}reduce/${productId}/`
+
+            // decrease price
+            setNewPrice(productId, "reduce")
+
+            // decreace quantity
+            setQuantity(productId, "reduce")
+
+            // hide minus if the quantity is 1
+            if (thisElement.previousElementSibling.textContent == '0') {
                 $(thisElement).css('display', 'none')
-                $(`#item-price-${product_id}`).text('0')
-                $(`#quantity-${product_id}`).text('0')
+                $(`#item-price-${productId}`).text('0')
+                $(`#quantity-${productId}`).text('0')
             }
         }
 
         $.ajax({
-            url: `${url}add/${product_id}/${n}/`,
+            url: changeQuanityUrl,
             type: 'GET',
             success: function (data) {
-                console.log(data)
-                updateCart(data.cart)
+                updateCartCounter(data)
             }
         })
     }
 
-    function updateCart(cart) {
-        console.log(cart)
-        let products = cart.products
-        for (const property in products) {
-            $(`#item-price-${property}`).text(products[property].item_price)
-            $(`#quantity-${property}`).text(products[property].product.quantity)
-        }
+    function setNewPrice(productId, act) {
+        const productPriceBox = $(`#product-price-${productId}`)
+        var productPrice = parseFloat(productPriceBox.text())
 
-        $('#total-price').text(cart.total_price)
+        const itemPriceBox = $(`#item-price-${productId}`)
+        var itemPrice = parseFloat(itemPriceBox.text())
+
+        const totalPriceBox = $("#total-price")
+        var totalPrice = parseInt(totalPriceBox.text())
+
+        var newItemPrice = 0
+        if (act === 'add') {
+            newItemPrice = productPrice + itemPrice
+            totalPrice += productPrice
+        } else if (act === 'remove') {
+            totalPrice -= itemPrice
+        }
+        else {
+            newItemPrice = itemPrice - productPrice
+            totalPrice -= productPrice
+        }
+        itemPriceBox.text(`${newItemPrice}.00`)
+        totalPriceBox.text(`${totalPrice}.00`)
+    }
+
+    function setQuantity(productId, act) {
+        const quantityBox = $(`#quantity-${productId}`)
+        const quantity = parseInt(quantityBox.text())
+
+        if (act === 'add') {
+            quantityBox.text(quantity + 1)
+        } else {
+            quantityBox.text(quantity - 1)
+        }
     }
 
     function remove(thisElement) {
-        product_id = thisElement.dataset.product_id
+        productId = thisElement.dataset.product_id
+
         $.ajax({
-            url: `${url}remove/${product_id}/`,
+            url: `${url}remove/${productId}/`,
             type: 'GET',
             success: function (data) {
-                if (data.delete) {
-                    $(`#product-${product_id}`).remove()
-                    updateCart(data.cart)
-                    updateCartCounter(data)
-                }
+                setNewPrice(productId, 'remove')
+                $(`#product-${productId}`).remove()
+                updateCartCounter(data)
             }
         })
     }
