@@ -31,9 +31,11 @@
 
         <div class="account">
             <div class="icon">
-                <a href="{% url 'cart:cart' %}">
+                <a href="{% url 'cart:cart_detail' %}">
                     <i class="far fa-shopping-bag"></i>
-                    <span id="header-qty">{{request.session.cart.quantity}}</span>
+                    <span id="header-qty">
+                        {{cart.get_total_quantity}}
+                    </span>
                 </a>
 
             </div>
