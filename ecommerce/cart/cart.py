@@ -37,6 +37,16 @@ class Cart:
 
         self.save()
 
+    def reduce(self, product_id: int):
+        # reduce one item from cart
+        for i in self.cart.keys():
+            if product_id == i:
+                quantity = self.cart[product_id]["quantity"]
+                if quantity > 1:
+                    quantity -= 1
+                else:
+                    self.remove(product_id)
+
     def remove(self, product):
         product_id = str(product.id)
         if product_id in self.cart:
