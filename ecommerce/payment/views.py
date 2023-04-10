@@ -45,41 +45,34 @@ def check_reault_payment(request):
     success = request.GET.get("success")
     track_id = request.GET.get("trackId")
     order_id = request.GET.get("orderId")
-    status = request.GET.get("status")
 
     order = get_object_or_404(Order, id=order_id)
 
-    print("type:", type(success))
     if success == "1":
+        # set order paid to true
+        order_obj = order
+        order_obj.is_paid = True
+        order_obj.save()
         # verify payment
-        verify_url = VEIYFY_URL
+        # verify_url = VEIYFY_URL
 
-        requets_headers = {"Content-Type": "application/json"}
-        request_data = {
-            "merchant": "zibal",
-            "trackId": track_id,
-        }
+        # requets_headers = {"Content-Type": "application/json"}
+        # request_data = {
+        #     "merchant": "zibal",
+        #     "trackId": track_id,
+        # }
 
-        res = requests.post(
-            url=verify_url, headers=requets_headers, data=request_data
-        ).json()
+        # res = requests.post(
+        #     url=verify_url, headers=requets_headers, data=request_data
+        # ).json()
 
-        payment_status = res["status"]
-        message = res["message"]
-
-        print("res:", res)
-
-        if payment_status == "1":
-            # set order paid to true
-            order_obj = order
-            order_obj.is_paid = True
-            order_obj.save()
+        # message = res["message"]
 
         data = {
             "success": success,
             "track_id": track_id,
             "order": order,
-            "message": message,
+            # "message": message,
         }
 
         return render(request, "payment/result.html", {"data": data})

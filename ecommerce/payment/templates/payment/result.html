@@ -5,16 +5,18 @@
 
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-sm-6">
-
-            {% if data.success == 1 %}
-            <div class="alert alert-success alert-dismissible" role="alert">پرداخت با موفقیت انجام شد</div>
-            <div>
+        <div class="col-sm-6" dir="rtl">
+            {% if data.success == "1" %}
+            <div class="alert alert-success alert-dismissible" role="alert">پرداخت با موفقیت انجام شد
+                <div>کد پیگیری تراکنش:</div>
                 <div>{{data.track_id}}</div>
             </div>
             {% else %}
-            <div>پرداخت انجام نشده است</div>
-            {{data.message}}
+            <div class="alert alert-danger alert-dismissible">
+                <p> پرداخت انجام نشده است</p>
+                <p>{{data.message}}</p>
+            </div>
+
             {% endif %}
         </div>
     </div>
