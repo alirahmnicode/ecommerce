@@ -1,12 +1,14 @@
 import json
 
 import requests
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from ecommerce.orders.models import Order
 
 from .constant import CALLBACK_URL, CREATE_PAYMENT, PAYMENT_URL, VEIYFY_URL
 
 
+@login_required
 def payment_process(request):
     order_id = request.session.get("order_id")
     order = get_object_or_404(Order, id=order_id)
@@ -41,6 +43,7 @@ def payment_process(request):
         return redirect("/")
 
 
+@login_required
 def check_reault_payment(request):
     success = request.GET.get("success")
     track_id = request.GET.get("trackId")

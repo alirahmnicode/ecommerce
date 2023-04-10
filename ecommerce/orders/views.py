@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from ecommerce.cart.cart import Cart
 
@@ -5,6 +6,7 @@ from .forms import OrderForm
 from .models import OrderItem
 
 
+@login_required
 def order_create_view(request):
     cart = Cart(request)
     if request.method == "POST":

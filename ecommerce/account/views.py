@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import HttpResponse, redirect, render
 from django.views import View
@@ -47,7 +48,7 @@ def user_logout(request):
     return redirect("inventory:index")
 
 
-class ProfileView(View):
+class ProfileView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         user = request.user
         profile_form = ProfileUpdateForm(instance=user.profile)
@@ -58,7 +59,7 @@ class ProfileView(View):
         return render(request, "account/profile/profile.html", context)
 
 
-class UpdateProfileView(View):
+class UpdateProfileView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         try:
             profile = request.user.profile
