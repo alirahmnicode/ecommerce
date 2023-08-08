@@ -1,8 +1,9 @@
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.shortcuts import render
+from ecommerce.demo.management.orm_test import query_manage
+from ecommerce.inventory.models import Brand, Category, Product, ProductInventory
 
-from . import models
 from .filters import ProductFiler
 from .sort import Sort
 from .utils import random_choice_list
@@ -10,22 +11,23 @@ from .utils import random_choice_list
 
 # Create your views here.
 def index(request):
-    brands = models.Brand.objects.all()
+    brands = Brand.objects.prefetch_related("products").all()
     brands_list = random_choice_list(list(brands), 3)
-    new_products = models.ProductInventory.objects.all()
+    new_products = ProductInventory.objects.select_related("product").all()
     best_selling = new_products.order_by("-stock__units_sold")
     data = {
         "brands": brands_list,
         "new_products": new_products,
         "best_selling": best_selling,
     }
+
     return render(request, "inventory/index.html", {"data": data})
 
 
 def product_detail(request, slug):
 
     product = (
-        models.ProductInventory.objects.filter(product__slug=slug)
+        ProductInventory.objects.filter(product__slug=slug)
         .filter(is_default=True)
         .values(
             "id",
@@ -42,16 +44,16 @@ def product_detail(request, slug):
         .get()
     )
     # get 20 similar products by category
-    similar_products = models.ProductInventory.objects.filter(
+    similar_products = ProductInventory.objects.select_related("product").filter(
         product__category__id=product["product__category__id"]
     )[:20]
-    print(similar_products)
+
     context = {"product": product, "similar_products": similar_products}
     return render(request, "inventory/product_detail.html", context)
 
 
 def products_filter(request):
-    product = models.ProductInventory.objects.all()
+    product = ProductInventory.objects.select_related("product").all()
     if request.GET.get("sort"):
         sort_field = request.GET.get("sort_field")
         ascending = request.GET.get("ascending")
@@ -71,13 +73,13 @@ def search(request):
 
     if query:
         # search
-        products = models.Product.objects.filter(name__icontains=query).values(
+        products = Product.objects.filter(name__icontains=query).values(
             "name",
             "slug",
             "product__store_price",
             "id",
         )
-        categories = models.Category.objects.filter(name__icontains=query).values(
+        categories = Category.objects.filter(name__icontains=query).values(
             "name",
             "id",
         )
